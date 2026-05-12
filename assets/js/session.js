@@ -249,3 +249,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Khai báo Global để dùng ngoài HTML
 window.SurveyMath = SurveyMath;
+/**
+ * ========================================================
+ * UI TAB CONTROLLER
+ * Xử lý giao diện Tab Cá nhân / Nhóm cho tất cả các buổi học
+ * ========================================================
+ */
+const UITabController = {
+    init() {
+        // Tự động kích hoạt tab Cá nhân khi load trang (nếu trang đó có Tab)
+        if (document.getElementById('tabBtnPersonal')) {
+            this.switchTab('personal');
+        }
+    },
+
+    switchTab(tabName) {
+        const btnP = document.getElementById('tabBtnPersonal');
+        const btnG = document.getElementById('tabBtnGroup');
+        const pnlP = document.getElementById('tabPanelPersonal');
+        const pnlG = document.getElementById('tabPanelGroup');
+
+        if (!btnP || !btnG || !pnlP || !pnlG) return;
+
+        // Class giao diện cho nút đang Active
+        const activeClass = "whitespace-nowrap px-6 py-3 font-extrabold text-sm sm:text-base rounded-t-xl transition-all border-b-4 bg-blue-50 text-blue-700 border-blue-600";
+        const activeGroupClass = "whitespace-nowrap px-6 py-3 font-extrabold text-sm sm:text-base rounded-t-xl transition-all border-b-4 bg-emerald-50 text-emerald-700 border-emerald-600";
+        
+        // Class giao diện cho nút bị Ẩn (Inactive)
+        const inactiveClass = "whitespace-nowrap px-6 py-3 font-bold text-sm sm:text-base rounded-t-xl transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50";
+
+        if (tabName === 'personal') {
+            btnP.className = activeClass;
+            btnG.className = inactiveClass;
+            pnlP.style.display = 'block';
+            pnlG.style.display = 'none';
+        } else {
+            btnG.className = activeGroupClass;
+            btnP.className = inactiveClass;
+            pnlG.style.display = 'block';
+            pnlP.style.display = 'none';
+        }
+    }
+};
+
+// Cập nhật lại phần khởi chạy khi DOM hoàn tất
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof SessionController !== 'undefined') SessionController.init();
+    UITabController.init();
+});
+
+// Gắn UITabController vào window để gọi được từ thẻ onclick trong HTML
+window.UITabController = UITabController;
