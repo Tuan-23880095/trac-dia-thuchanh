@@ -120,15 +120,36 @@ const Auth = {
         const btn = document.getElementById('registerBtn');
         const statusDiv = document.getElementById('statusMessage');
 
+        // 1. Kiểm tra mật khẩu khớp nhau
         if (password !== confirmPassword) {
             this.showError(statusDiv, 'Mật khẩu xác nhận không khớp!');
             return;
         }
 
-        this.setButtonState(btn, true, `Đang xử lý...`);
+        // 2. Cập nhật UI Loading
+        this.setButtonState(btn, true, `
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg> Đang đẩy dữ liệu...
+        `);
         statusDiv.classList.add('hidden');
 
         const payload = { mssv, fullname, classId, email, password };
+
+        // 3. GỌI API THẬT LÊN GOOGLE SHEETS
+        const res = await this.fetchGAS("REGISTER", payload);
+        
+        // 4. Xử lý kết quả trả về từ Google Sheets
+        if (res.status === "success") {
+            this.showSuccess(statusDiv, btn, 'Đăng ký thành công! Đang chuyển hướng...');
+            setTimeout(() => window.location.href = 'login.html', 2000);
+        } else {
+            // Trả về lỗi (VD: Trùng MSSV, hoặc MSSV không có trong danh sách lớp)
+            this.setButtonState(btn, false, 'Đăng ký tài khoản');
+            this.showError(statusDiv, res.message);
+        }
+    },
 
         // GỌI API THẬT
         const res = await this.fetchGAS("REGISTER", payload);
