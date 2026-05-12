@@ -1,4 +1,4 @@
-const GAS_ENDPOINT = "YOUR_GOOGLE_APPS_SCRIPT_URL";
+const GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxJw0k2Sj3RVFiLANLdLjE0KtUpbvMBYpUBDs_k3nQ49KCAq4wayoZsCJaW17dmbsc7/exec";
 
 async function submitSessionData(mssv, sessionNumber, data) {
     const payload = {
