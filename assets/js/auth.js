@@ -7,7 +7,7 @@
 
 const Auth = {
     // API URL của bạn
-    API_URL: typeof GAS_ENDPOINT !== 'undefined' ? GAS_ENDPOINT : "https://script.google.com/macros/s/AKfycbwPCv22W8Hhi8WRC9kNRXkEbMLSsh2cEzVnZB05ngT0QYNQL2lZOIao05lEawmZEBBc/exec",
+    API_URL: typeof GAS_ENDPOINT !== 'undefined' ? GAS_ENDPOINT : "https://script.google.com/macros/s/AKfycbyV36-I8_5KZ3_2tkKkM086GyLjRTsTfxOr0om4cD7hGwadDOeSUhj9IdQ26LTL-HCM/exec",
 
     init() {
         this.bindEvents();
