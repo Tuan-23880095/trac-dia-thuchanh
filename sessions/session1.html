@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buổi 1: Giới thiệu máy Kinh vĩ & Thủy bình | Thực hành Trắc địa</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 </head>
 <body class="bg-slate-50 text-gray-900 antialiased pb-20">
 
@@ -27,23 +28,35 @@
             <p class="text-gray-500">Thực hành nhận diện bộ phận, thao tác điều quang và ngắm bắt mục tiêu 3 lần để triệt tiêu sai số ngẫu nhiên.</p>
         </div>
 
+        <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-6 shadow-sm">
+            <h2 class="font-bold text-blue-800 mb-2">💡 Hướng dẫn Toán học & QC</h2>
+            <p class="text-sm text-blue-900 leading-relaxed">
+                Sinh viên thực hiện ngắm mục tiêu 3 lần độc lập. Gọi $x_1, x_2, x_3$ lần lượt là số đọc của 3 lần đo.
+                Giá trị trung bình được tính theo công thức:
+            </p>
+            <div class="text-center my-2 text-lg text-blue-900 font-semibold">
+                $$ \bar{X} = \frac{x_1 + x_2 + x_3}{3} $$
+            </div>
+            <p class="text-xs text-blue-800 italic mt-2">* Hệ thống sẽ báo đỏ nếu chênh lệch giữa 3 lần đo vượt quá giới hạn cho phép.</p>
+        </div>
+
         <form id="sessionForm" class="space-y-6">
             
             <input type="hidden" name="form_name" value="PHIẾU KẾT QUẢ THỰC TẬP TRẮC ĐỊA">
             <input type="hidden" name="session_name" value="BUỔI 1: GIỚI THIỆU VỀ MÁY KINH VĨ VÀ MÁY THỦY BÌNH">
+            <input type="hidden" name="subject_name" value="Trắc địa đại cương">
+            <input type="hidden" name="subject_code" value="GEO10055">
+            <input type="hidden" name="theory_instructor" value="ThS. Đỗ Ngọc Thanh">
 
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <label class="block text-sm font-bold text-gray-900 mb-2">Chế độ thực hành <span class="text-red-500">*</span></label>
-                <select name="submit_type" required class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="Cá nhân">Thực hành Cá nhân</option>
-                    <option value="Nhóm">Thực hành Nhóm (Đại diện nộp)</option>
-                </select>
+                <label class="block text-sm font-bold text-gray-900 mb-2">Giảng viên hướng dẫn sân tập <span class="text-red-500">*</span></label>
+                <input type="text" name="practice_instructor" required class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-blue-500" placeholder="VD: ThS. Nguyễn Văn A...">
             </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 border-l-8 border-l-blue-500">
                 <div class="flex items-center gap-2 mb-4 border-b pb-3">
                     <span class="bg-blue-100 text-blue-700 font-black w-8 h-8 flex items-center justify-center rounded-lg">I</span>
-                    <h2 class="text-lg font-bold text-gray-900 uppercase">Nhiệm vụ: Làm quen thiết bị</h2>
+                    <h2 class="text-lg font-bold text-gray-900 uppercase">Nhiệm vụ Nhóm: Làm quen thiết bị</h2>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -52,7 +65,7 @@
                         <select name="machine_type" class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-blue-500">
                             <option value="Máy kinh vĩ điện tử">Máy kinh vĩ điện tử</option>
                             <option value="Máy kinh vĩ quang học">Máy kinh vĩ quang học</option>
-                            <option value="Máy thủy bình">Máy thủy bình tự động</option>
+                            <option value="Máy thủy bình tự động">Máy thủy bình tự động</option>
                         </select>
                     </div>
                     <div>
@@ -61,16 +74,16 @@
                     </div>
                     <div class="md:col-span-2">
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Ảnh minh chứng toàn cảnh nhóm</label>
-                        <input type="file" accept="image/*" onchange="encodeImage(this, 'group_photo_url')" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300 rounded-xl bg-gray-50">
+                        <input type="file" accept="image/*" onchange="encodeImage(this, 'group_photo_url')" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-xl bg-gray-50 p-2">
                         <input type="hidden" name="group_photo_url" id="group_photo_url">
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 border-l-8 border-l-emerald-500">
                 <div class="flex items-center gap-2 mb-4 border-b pb-3">
                     <span class="bg-emerald-100 text-emerald-700 font-black w-8 h-8 flex items-center justify-center rounded-lg">II</span>
-                    <h2 class="text-lg font-bold text-gray-900 uppercase">Nhận diện cấu tạo máy</h2>
+                    <h2 class="text-lg font-bold text-gray-900 uppercase">Cá nhân: Nhận diện cấu tạo máy</h2>
                 </div>
                 <p class="text-sm text-gray-500 mb-4">Sinh viên đối chiếu sơ đồ với máy thực tế và điền tên đúng của bộ phận.</p>
 
@@ -97,7 +110,7 @@
                     </div>
                     <div class="pt-2">
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Ảnh Selfie cá nhân chỉ vào thiết bị</label>
-                        <input type="file" accept="image/*" capture="user" onchange="encodeImage(this, 'individual_photo_url')" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 border border-gray-300 rounded-xl bg-gray-50">
+                        <input type="file" accept="image/*" capture="user" onchange="encodeImage(this, 'individual_photo_url')" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-xl bg-gray-50 p-2">
                         <input type="hidden" name="individual_photo_url" id="individual_photo_url">
                     </div>
                 </div>
@@ -108,56 +121,63 @@
                     <span class="bg-blue-600 text-white font-black w-8 h-8 flex items-center justify-center rounded-lg">III</span>
                     <h2 class="text-lg font-bold text-gray-900 uppercase">Thực hành ngắm và đọc số (3 Lần)</h2>
                 </div>
-                <div class="bg-white/60 p-3 rounded-xl mb-4 text-sm text-blue-900 border border-blue-100">
-                    <strong>⚠️ Yêu cầu QC:</strong> Nhập số thập phân liên tục. Giữa mỗi lần đo, mở khóa vi động làm lệch máy và ngắm lại mục tiêu. Hệ thống sẽ báo đỏ nếu chênh lệch giữa 3 lần quá lớn.
-                </div>
 
-                <div class="mb-4">
+                <div class="mb-4 mt-4">
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Loại trị số đọc</label>
-                    <select name="reading_type" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-2 focus:ring-blue-500">
-                        <option value="Góc bằng (Máy Kinh vĩ)">Góc bằng (Máy Kinh vĩ)</option>
+                    <select name="reading_type" id="reading_type" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-2 focus:ring-blue-500 font-bold text-blue-700">
+                        <option value="Góc bằng (Máy Kinh vĩ)">Góc bằng (Máy Kinh vĩ) - Nhập thập phân</option>
                         <option value="Chỉ giữa mm (Máy Thủy bình)">Chỉ giữa mm (Máy Thủy bình)</option>
                     </select>
+                </div>
+
+                <div id="qc-warning" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded shadow-sm text-sm">
+                    <strong>⛔ Cảnh báo vi phạm QC:</strong> Chênh lệch giữa 3 lần đo quá lớn. Ngắm sai rốn mục tiêu, yêu cầu ngắm lại! Nút nộp Cá nhân tạm khóa.
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">Lần 1</label>
-                        <input type="number" name="val_1" step="any" class="val-group w-full bg-white border border-gray-300 text-lg font-mono rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="VD: 120.3015" data-calc="average" data-group="val-group" data-target="val_avg" data-validate="diff-3mm">
+                        <input type="number" name="val_1" step="any" class="val-group w-full bg-white border border-gray-300 text-lg font-mono rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500" placeholder="...">
                         <span class="text-xs text-gray-500 mt-1 block">Ngắm bắt lần đầu</span>
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">Lần 2</label>
-                        <input type="number" name="val_2" step="any" class="val-group w-full bg-white border border-gray-300 text-lg font-mono rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="..." data-calc="average" data-group="val-group" data-target="val_avg" data-validate="diff-3mm">
+                        <input type="number" name="val_2" step="any" class="val-group w-full bg-white border border-gray-300 text-lg font-mono rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500" placeholder="...">
                         <span class="text-xs text-gray-500 mt-1 block">Làm lệch và ngắm lại</span>
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">Lần 3</label>
-                        <input type="number" name="val_3" step="any" class="val-group w-full bg-white border border-gray-300 text-lg font-mono rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="..." data-calc="average" data-group="val-group" data-target="val_avg" data-validate="diff-3mm">
+                        <input type="number" name="val_3" step="any" class="val-group w-full bg-white border border-gray-300 text-lg font-mono rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500" placeholder="...">
                         <span class="text-xs text-gray-500 mt-1 block">Làm lệch và ngắm lại</span>
                     </div>
                 </div>
 
                 <div class="bg-blue-900 text-white p-4 rounded-xl flex justify-between items-center shadow-inner">
-                    <span class="font-bold text-sm uppercase tracking-wider">Trị số Trung Bình</span>
+                    <span class="font-bold text-sm uppercase tracking-wider">Trị số Trung Bình $\bar{X}$:</span>
                     <input type="number" id="val_avg" name="val_avg" readonly class="bg-transparent border-none text-right font-mono text-2xl font-bold w-1/2 focus:ring-0" value="0.0000">
                 </div>
             </div>
 
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                 <h2 class="text-lg font-bold text-gray-900 uppercase border-b pb-3 mb-4">IV. Tổng kết & Nhận xét</h2>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Ghi nhận khó khăn khi thao tác (vi động, ngắm tiêu...):</label>
-                <textarea name="student_comment" rows="3" class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-blue-500" placeholder="Trình bày ngắn gọn..."></textarea>
+                <textarea name="student_comment" rows="3" class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-blue-500" placeholder="Trình bày ngắn gọn khó khăn gặp phải..."></textarea>
             </div>
 
-            <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                <button type="button" id="btnExportPDF" onclick="PDFExporter.export('pdf-template-buoi1', 'Buoi1')" 
-                    class="flex-1 justify-center py-4 px-6 border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200 mt-6">
+                <button type="button" id="btnExportPDF" onclick="PDFExporter.export('pdf-template-buoi1', 'Buoi1_LamQuenMay')" 
+                    class="sm:w-1/3 flex justify-center items-center py-4 px-4 border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all">
                     🖨️ Xuất Báo cáo PDF
                 </button>
-                <button type="submit" id="btnSubmitSession"
-                    class="flex-1 justify-center py-4 px-6 border border-transparent text-white bg-blue-600 font-bold rounded-xl hover:bg-blue-700 shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    📤 Nộp Số Liệu Lên Hệ Thống
+                
+                <button type="submit" id="btnSubmitPersonal" name="action_submit" value="Cá nhân"
+                    class="sm:w-1/3 flex justify-center items-center py-4 px-4 border border-transparent text-white bg-blue-600 font-bold rounded-xl hover:bg-blue-700 shadow-md transition-all">
+                    👤 Nộp Bài Cá Nhân
+                </button>
+                
+                <button type="submit" id="btnSubmitGroup" name="action_submit" value="Nhóm"
+                    class="sm:w-1/3 flex justify-center items-center py-4 px-4 border border-transparent text-white bg-emerald-600 font-bold rounded-xl hover:bg-emerald-700 shadow-md transition-all"
+                    title="Chỉ dành cho Nhóm trưởng sau khi đã điền phần Nhiệm vụ Nhóm">
+                    👥 Nộp Bài Nhóm
                 </button>
             </div>
 
@@ -169,21 +189,21 @@
             <div class="text-center flex-1 px-4">
                 <h3 class="m-0 text-[14px] font-bold uppercase">Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM<br>Khoa Địa chất - Bộ môn ĐCTV & ĐCCT</h3>
                 <h2 class="mt-2 mb-1 text-[18px] font-extrabold uppercase" data-pdf-field="form_name">Phiếu Kết Quả Thực Tập Trắc Địa</h2>
-                <p class="m-0 italic font-bold" data-pdf-field="session_name">Buổi 1: Giới thiệu về máy Kinh vĩ và máy Thủy bình</p>
+                <p class="m-0 italic font-bold" data-pdf-field="session_name"></p>
             </div>
         </div>
 
         <div class="text-right italic text-[12px] text-gray-700 mb-4">
-            Thời gian nộp bài: <span data-pdf-field="access_datetime" class="font-semibold text-black">--/--/----</span>
+            Thời gian nộp bài: <span data-pdf-field="access_datetime" class="font-semibold text-black"></span>
         </div>
 
         <div class="mb-4">
             <h4 class="font-bold text-[14px] mb-2 uppercase">I. Thông tin chung</h4>
             <div class="grid grid-cols-2 gap-2 pl-4">
-                <div><b>Môn học:</b> Trắc địa đại cương</div>
-                <div><b>Mã môn:</b> GEO10055</div>
-                <div><b>Giảng viên lý thuyết:</b> ThS. Đỗ Ngọc Thanh</div>
-                <div><b>Giảng viên hướng dẫn:</b> ....................................</div>
+                <div><b>Môn học:</b> <span data-pdf-field="subject_name"></span></div>
+                <div><b>Mã môn:</b> <span data-pdf-field="subject_code"></span></div>
+                <div><b>GV lý thuyết:</b> <span data-pdf-field="theory_instructor"></span></div>
+                <div><b>GV hướng dẫn:</b> <span data-pdf-field="practice_instructor"></span></div>
                 <div><b>Họ và tên:</b> <span data-pdf-field="student_name" class="font-bold uppercase"></span></div>
                 <div><b>MSSV:</b> <span data-pdf-field="student_id" class="font-bold"></span> <span class="ml-4"><b>Nhóm:</b> <span data-pdf-field="group_id" class="font-bold"></span></span></div>
             </div>
@@ -192,13 +212,13 @@
         <div class="mb-4">
             <h4 class="font-bold text-[14px] mb-2 uppercase">II. Nhiệm vụ nhóm - Làm quen thiết bị</h4>
             <ul class="list-disc pl-8 mb-2 space-y-1">
-                <li><b>Loại máy nhóm được giao:</b> <span data-pdf-field="machine_type"></span></li>
+                <li><b>Loại máy:</b> <span data-pdf-field="machine_type"></span></li>
                 <li><b>Mô tả mục tiêu ngắm:</b> <span data-pdf-field="target_desc"></span></li>
                 <li><b>Xác nhận thao tác:</b> Nhóm đã hoàn thành việc sử dụng ống ngắm sơ bộ hướng về mục tiêu, điều chỉnh rõ màng dây chữ thập và dùng ốc vi động đưa dấu chữ thập vào đúng rốn mục tiêu.</li>
             </ul>
             <div class="mt-2 text-center">
                 <p class="italic text-[12px] mb-1">Ảnh minh chứng toàn cảnh nhóm thao tác:</p>
-                <div data-pdf-field="group_photo_url" class="min-h-[150px] max-w-[500px] mx-auto flex items-center justify-center text-gray-400 text-xs"></div>
+                <div data-pdf-field="group_photo_url" class="min-h-[150px] max-w-[500px] mx-auto border border-gray-300 flex items-center justify-center text-gray-400 text-xs"></div>
             </div>
         </div>
 
@@ -214,7 +234,7 @@
                 </ul>
                 <div class="text-center">
                     <p class="italic text-[12px] mb-1">Ảnh Selfie cá nhân chỉ thiết bị:</p>
-                    <div data-pdf-field="individual_photo_url" class="h-[120px] mx-auto flex items-center justify-center text-gray-400 text-xs"></div>
+                    <div data-pdf-field="individual_photo_url" class="h-[120px] mx-auto border border-gray-300 flex items-center justify-center text-gray-400 text-xs"></div>
                 </div>
             </div>
         </div>
@@ -281,74 +301,121 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+    
     <script src="../assets/js/api.js"></script>
     <script src="../assets/js/auth.js"></script>
     <script src="../assets/js/autosave.js"></script>
-    <script src="../assets/js/session.js"></script>
     <script src="../assets/js/pdf.js"></script>
 
     <script>
-        // 1. Hàm hỗ trợ chuyển đổi Ảnh (File Upload) sang chuỗi Base64
-        // Việc này giúp nhúng trực tiếp ảnh vào PDF hoặc gửi lên Google Script qua API
+        // 1. Chuyển đổi Hình ảnh sang Base64
         function encodeImage(element, hiddenFieldId) {
             const file = element.files[0];
             const reader = new FileReader();
             reader.onloadend = function() {
                 document.getElementById(hiddenFieldId).value = reader.result;
-                // Kích hoạt thủ công AutoSave khi đổi ảnh
                 if (typeof AutoSave !== 'undefined') AutoSave.saveData(document.getElementById('sessionForm'));
             }
-            if (file) {
-                reader.readAsDataURL(file);
-            }
+            if (file) reader.readAsDataURL(file);
         }
 
-        // 2. Lắng nghe Nộp bài (Form Submit)
+        // 2. Logic QC và Tính Trung bình
+        document.addEventListener('DOMContentLoaded', () => {
+            const valInputs = document.querySelectorAll('.val-group');
+            const qcWarning = document.getElementById('qc-warning');
+            const btnPersonal = document.getElementById('btnSubmitPersonal');
+            const readingTypeSelect = document.getElementById('reading_type');
+
+            function calculateAndValidate() {
+                const vals = Array.from(valInputs).map(inp => parseFloat(inp.value)).filter(v => !isNaN(v));
+                
+                if (vals.length === 3) {
+                    // Tính trung bình
+                    const avg = vals.reduce((a, b) => a + b, 0) / 3;
+                    document.getElementById('val_avg').value = avg.toFixed(4);
+
+                    // Kiểm tra QC Max - Min
+                    const max = Math.max(...vals);
+                    const min = Math.min(...vals);
+                    const diff = max - min;
+                    
+                    // Lấy loại máy đang chọn
+                    const isThuyBinh = readingTypeSelect.value.includes('Thủy bình');
+                    
+                    // Nếu là Thủy bình (mm) -> lệch tối đa 3mm. Kinh vĩ (góc) -> lệch tối đa 0.05 độ (~3 phút)
+                    const tolerance = isThuyBinh ? 3 : 0.05;
+
+                    if (diff > tolerance) {
+                        qcWarning.classList.remove('hidden');
+                        btnPersonal.disabled = true;
+                        btnPersonal.classList.add('opacity-50', 'cursor-not-allowed');
+                    } else {
+                        qcWarning.classList.add('hidden');
+                        btnPersonal.disabled = false;
+                        btnPersonal.classList.remove('opacity-50', 'cursor-not-allowed');
+                    }
+                }
+            }
+
+            valInputs.forEach(input => input.addEventListener('input', calculateAndValidate));
+            readingTypeSelect.addEventListener('change', calculateAndValidate);
+        });
+
+        // 3. Xử lý Nộp bài Đa Luồng (Cá nhân / Nhóm)
         document.getElementById('sessionForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Validate: Cảnh báo nếu chưa xuất PDF (Nghiệp vụ giữ minh chứng)
-            if(!confirm("Bạn có chắc chắn muốn nộp số liệu? Hãy đảm bảo đã bấm 'Xuất Báo cáo PDF' để lưu trữ trước khi nộp lên hệ thống!")) return;
+            const submitterBtn = e.submitter; 
+            const submitType = submitterBtn.value; 
 
-            const btn = document.getElementById('btnSubmitSession');
-            const originalText = btn.innerHTML;
-            
-            // Trạng thái Loading
-            btn.disabled = true;
-            btn.innerHTML = 'Đang đẩy dữ liệu lên máy chủ...';
+            // Cảnh báo dựa trên loại form
+            if (submitType === 'Nhóm') {
+                if(!confirm("Bạn đang nộp bài dưới tư cách ĐẠI DIỆN NHÓM. Vui lòng đảm bảo đã chụp hình toàn cảnh trạm máy. Tiếp tục?")) return;
+            } else {
+                if(!confirm("Bạn đang nộp bài CÁ NHÂN. Đảm bảo đã nhập số đo 3 lần và xuất PDF minh chứng. Tiếp tục?")) return;
+            }
 
-            // Lấy thông tin user hiện tại
+            const originalText = submitterBtn.innerHTML;
+            submitterBtn.disabled = true;
+            submitterBtn.innerHTML = 'Đang đẩy dữ liệu lên hệ thống...';
+
             const user = Auth.getUser();
             if(!user) {
-                alert("Lỗi: Không tìm thấy phiên đăng nhập. Vui lòng đăng nhập lại!");
+                alert("Lỗi: Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại!");
                 window.location.href = '../login.html';
                 return;
             }
 
-            // Gói dữ liệu
             const formData = new FormData(this);
             const dataObj = Object.fromEntries(formData.entries());
+            
+            delete dataObj.action_submit; 
+            dataObj.submit_type = submitType; 
             dataObj.access_datetime = new Date().toLocaleString('vi-VN');
             dataObj.student_id = user.mssv;
             dataObj.student_name = user.name || user.fullname;
             dataObj.group_id = user.classId || 'N/A';
 
-            // Gọi API (từ file api.js)
+            // Gửi API lên Google Sheets
             const result = await API.submitSession(user.mssv, 1, dataObj);
             
             if(result && result.status === 'success') {
-                btn.innerHTML = '✅ Nộp bài thành công!';
-                btn.classList.replace('bg-blue-600', 'bg-emerald-600');
-                
-                // Dọn dẹp nháp sau khi nộp xong để chuẩn bị cho buổi học khác
+                submitterBtn.innerHTML = '✅ Nộp thành công!';
                 if (typeof AutoSave !== 'undefined') AutoSave.clearData();
                 
-                alert("Dữ liệu đã được ghi nhận vào Google Sheets thành công.");
-                setTimeout(() => window.location.href = '../dashboard.html', 2000);
+                alert(`Dữ liệu [${submitType}] đã được hệ thống ghi nhận thành công.`);
+                if(confirm("Bạn có muốn quay về Bảng điều khiển không? (Chọn Cancel để ở lại nộp tiếp phần luồng còn lại)")) {
+                    window.location.href = '../dashboard.html';
+                } else {
+                    submitterBtn.disabled = false;
+                    submitterBtn.innerHTML = originalText;
+                }
             } else {
-                alert("Lỗi: Không thể kết nối. Hệ thống lưu nháp vào bộ nhớ điện thoại để nộp lại sau.");
-                btn.disabled = false;
-                btn.innerHTML = originalText;
+                alert("Hệ thống lưu nháp cục bộ vào thiết bị (Có thể do lỗi mạng). Hãy thử bấm nộp lại khi có 4G/Wifi ổn định.");
+                submitterBtn.disabled = false;
+                submitterBtn.innerHTML = originalText;
             }
         });
     </script>
