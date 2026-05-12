@@ -10,7 +10,7 @@
 const PDFExporter = {
     /**
      * Hàm cấu hình và xuất PDF
-     * @param {string} templateId - ID của thẻ div chứa mẫu A4
+     * @param {string} templateId - ID của thẻ div chứa mẫu A4 (thường để display: none)
      * @param {string} sessionName - Tên buổi thực hành (để đặt tên file)
      */
     async export(templateId, sessionName = "Buoi_Thuc_Hanh") {
@@ -30,15 +30,9 @@ const PDFExporter = {
         const dateStr = new Date().toLocaleDateString('vi-VN').replace(/\//g, '-');
         const filename = `${sessionName}_${user.mssv}_${dateStr}.pdf`;
 
-    // 1. CHUẨN BỊ GIAO DIỆN: Đặt tại tọa độ 0,0 nhưng chìm xuống dưới cùng
+        // Chuẩn bị giao diện Template (Bỏ class hidden tạm thời để html2canvas có thể chụp ảnh)
         templateElement.classList.remove('hidden');
         templateElement.style.display = 'block';
-        templateElement.style.position = 'absolute';
-        templateElement.style.left = '0';          // Xóa -9999px, đổi thành 0
-        templateElement.style.top = '0';
-        templateElement.style.zIndex = '-1000';    // Chìm dưới giao diện chính
-        templateElement.style.width = '210mm';     // Ép cứng chiều rộng A4 để không bị vỡ bố cục
-        templateElement.style.backgroundColor = 'white';
 
         // Điền trước các thông tin chung của sinh viên vào template
         this.fillContextData(templateElement, user);
@@ -52,25 +46,21 @@ const PDFExporter = {
             btn.disabled = true;
         }
 
+        // Cấu hình thông số chuẩn A4 cho in ấn hành chính
+        const opt = {
+            margin:       15, // Căn lề 15mm chuẩn văn bản
+            filename:     filename,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { 
+                scale: 2, // Scale = 2 để chữ và bảng biểu không bị vỡ hạt (anti-aliasing)
+                useCORS: true, // Cho phép load ảnh minh chứng từ Google Drive
+                logging: false 
+            },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
         try {
-            // Đợi 500ms để trình duyệt kịp Render CSS và Load Image
-            await new Promise(resolve => setTimeout(resolve, 500));
-
-            const opt = {
-                margin:       15,
-                filename:     filename,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { 
-                    scale: 2, 
-                    useCORS: true, 
-                    logging: false,
-                    scrollX: 0, 
-                    scrollY: 0, 
-                    windowWidth: document.documentElement.offsetWidth // Ép chiều rộng để tránh scale sai
-                },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
+            // Chạy quá trình build PDF
             await html2pdf().set(opt).from(templateElement).save();
             console.log(`[PDF Exporter] Đã tải xuống file: ${filename}`);
         } catch (error) {
@@ -78,9 +68,6 @@ const PDFExporter = {
             alert("Có lỗi xảy ra trong quá trình tạo PDF. Hãy thử lại!");
         } finally {
             // Ẩn lại Template và trả lại trạng thái nút bấm
-            templateElement.style.position = '';
-            templateElement.style.left = '';
-            templateElement.style.top = '';
             templateElement.classList.add('hidden');
             templateElement.style.display = 'none';
             if (btn) {
