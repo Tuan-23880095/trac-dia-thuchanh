@@ -70,7 +70,7 @@ const Auth = {
             window.location.href = 'dashboard.html';
         } else {
             this.setButtonState(btn, false, 'Đăng nhập');
-            // Nếu sai pass, GAS của bạn sẽ trả về chuỗi có chữ "Email". Mình hiển thị màu vàng cho thân thiện.
+            // Nếu sai pass, GAS sẽ trả về chuỗi có chữ "Email". Mình hiển thị màu vàng cho thân thiện.
             if(res.message.includes("Email")) {
                 this.showWarning(errorDiv, res.message);
             } else {
@@ -146,18 +146,6 @@ const Auth = {
             setTimeout(() => window.location.href = 'login.html', 2000);
         } else {
             // Trả về lỗi (VD: Trùng MSSV, hoặc MSSV không có trong danh sách lớp)
-            this.setButtonState(btn, false, 'Đăng ký tài khoản');
-            this.showError(statusDiv, res.message);
-        }
-    },
-
-        // GỌI API THẬT
-        const res = await this.fetchGAS("REGISTER", payload);
-        
-        if (res.status === "success") {
-            this.showSuccess(statusDiv, btn, 'Đăng ký thành công! Đang chuyển hướng đến trang đăng nhập...');
-            setTimeout(() => window.location.href = 'login.html', 2000);
-        } else {
             this.setButtonState(btn, false, 'Đăng ký tài khoản');
             this.showError(statusDiv, res.message);
         }
