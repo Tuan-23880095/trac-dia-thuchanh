@@ -8,18 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <style>
-        /* FIX LỖI PDF TRỐNG & LỆCH TRANG: 
-           Ép khung PDF luôn nằm ở tọa độ Top 0 nhưng bị giấu ra ngoài màn hình (left: -9999px) 
-           để html2pdf có thể chụp ảnh chuẩn xác 100% mà không vướng scrollbar. */
-        #pdf-template-buoi1 {
-            position: absolute;
-            top: 0;
-            left: -9999px;
-            width: 210mm; 
-            background-color: white;
-            z-index: -1000;
-        }
+
         .hide-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
