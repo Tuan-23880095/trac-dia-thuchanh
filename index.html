@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống Thực hành Trắc địa | HCMUS</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(to right, #2563eb, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+
+    <div class="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+        <!-- Main Card -->
+        <div class="max-w-4xl w-full space-y-10 bg-white p-8 sm:p-12 rounded-3xl shadow-xl border border-gray-100 text-center transition-all hover:shadow-2xl">
+            
+            <!-- Logo & Header -->
+            <div class="space-y-4">
+                <div class="flex justify-center mb-6">
+                    <div class="p-3 bg-blue-100 rounded-2xl">
+                        <!-- Icon máy toàn đạc/trắc địa đơn giản -->
+                        <svg class="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                        </svg>
+                    </div>
+                </div>
+                <h2 class="text-sm font-bold text-blue-600 tracking-widest uppercase">
+                    Đại học Khoa học Tự nhiên - ĐHQG HCM
+                </h2>
+                <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+                    Hệ Thống Thực Hành <span class="gradient-text">Trắc Địa</span>
+                </h1>
+                <p class="max-w-2xl mx-auto text-base text-gray-500 leading-relaxed">
+                    Nền tảng số hóa quy trình đo đạc hiện trường. Hỗ trợ sinh viên Khoa Địa chất nạp số liệu, kiểm tra sai số tự động (QC) và xuất hồ sơ minh chứng PDF chuyên nghiệp.
+                </p>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-gray-100 text-left">
+                <div class="group bg-blue-50 p-5 rounded-2xl border border-blue-100 hover:bg-white hover:shadow-md transition-all">
+                    <div class="text-blue-600 text-2xl mb-2">⏱️</div>
+                    <div class="text-gray-900 font-bold mb-1 text-sm">Thời gian thực</div>
+                    <div class="text-xs text-gray-600 leading-snug">Nhập liệu và kiểm tra sai số khép ngay tại trạm đo ngoài công trường.</div>
+                </div>
+                <div class="group bg-emerald-50 p-5 rounded-2xl border border-emerald-100 hover:bg-white hover:shadow-md transition-all">
+                    <div class="text-emerald-600 text-2xl mb-2">📊</div>
+                    <div class="text-gray-900 font-bold mb-1 text-sm">Tự động tính toán</div>
+                    <div class="text-xs text-gray-600 leading-snug">Tự động tính sai số 2C, MO, góc trung bình và chênh cao lượng giác.</div>
+                </div>
+                <div class="group bg-purple-50 p-5 rounded-2xl border border-purple-100 hover:bg-white hover:shadow-md transition-all">
+                    <div class="text-purple-600 text-2xl mb-2">📄</div>
+                    <div class="text-gray-900 font-bold mb-1 text-sm">Báo cáo chuẩn A4</div>
+                    <div class="text-xs text-gray-600 leading-snug">Xuất phiếu thực tập phiên bản in ấn sắc nét chỉ với một cú click.</div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+                <a href="login.html" class="inline-flex justify-center items-center px-8 py-4 border border-transparent text-base font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 shadow-lg transition-all hover:-translate-y-1">
+                    Đăng nhập hệ thống
+                </a>
+                <a href="register.html" class="inline-flex justify-center items-center px-8 py-4 border-2 border-gray-200 text-base font-bold rounded-xl text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-300 transition-all">
+                    Đăng ký tài khoản
+                </a>
+            </div>
+
+            <!-- Session Check Script -->
+            <script>
+                // Kiểm tra nếu đã đăng nhập thì chuyển hướng vào dashboard
+                document.addEventListener('DOMContentLoaded', function() {
+                    const user = localStorage.getItem('user');
+                    if (user) {
+                        window.location.href = 'dashboard.html';
+                    }
+                });
+            </script>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-10 text-center">
+            <p class="text-sm font-medium text-gray-400">
+                &copy; 2026 Khoa Địa chất - HCMUS. Phát triển phục vụ học phần Trắc địa đại cương.
+            </p>
+            <div class="mt-2 flex justify-center space-x-4 text-xs text-blue-500 font-semibold uppercase tracking-tighter">
+                <a href="#" class="hover:underline">Hướng dẫn</a>
+                <span>•</span>
+                <a href="#" class="hover:underline">Hỗ trợ kỹ thuật</a>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
