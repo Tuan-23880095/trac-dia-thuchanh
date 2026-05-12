@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bảng điều khiển | Thực hành Trắc địa HCMUS</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
         .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -17,30 +16,33 @@
 </head>
 <body class="text-gray-900 antialiased flex flex-col min-h-screen">
 
-    <!-- Top Navigation Bar -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <!-- Logo & Brand -->
                 <div class="flex items-center gap-3">
-                    <div class="bg-blue-600 p-2 rounded-lg text-white">
+                    <div class="bg-blue-600 p-2 rounded-lg text-white shadow-lg shadow-blue-200">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
                         </svg>
                     </div>
-                    <span class="font-bold text-lg hidden sm:block">Trắc Địa HCMUS</span>
+                    <span class="font-bold text-lg hidden sm:block tracking-tight text-blue-900">Trắc Địa HCMUS</span>
                 </div>
 
-                <!-- User Menu -->
                 <div class="flex items-center gap-4">
+                    <div id="adminPortal" class="hidden">
+                        <a href="admin.html" class="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-lg text-xs font-bold hover:bg-amber-100 transition-colors">
+                            ⚙️ Trang Quản trị
+                        </a>
+                    </div>
+
                     <div class="text-right hidden sm:block">
                         <div id="navUserName" class="text-sm font-bold text-gray-900">Sinh viên</div>
-                        <div id="navUserMssv" class="text-xs text-gray-500 font-medium">MSSV: ---</div>
+                        <div id="navUserMssv" class="text-[10px] text-gray-500 font-black uppercase tracking-widest">MSSV: ---</div>
                     </div>
                     <div class="h-9 w-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold border border-blue-200">
                         <span id="navAvatarInitials">SV</span>
                     </div>
-                    <button onclick="handleLogout()" class="ml-2 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Đăng xuất">
+                    <button onclick="Auth.logout()" class="ml-1 p-2 text-gray-400 hover:text-red-500 transition-colors" title="Đăng xuất">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                         </svg>
@@ -50,138 +52,134 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        <!-- Welcome & Progress Banner -->
-        <div class="bg-gradient-to-r from-blue-600 to-cyan-500 rounded-3xl p-6 sm:p-10 mb-10 text-white shadow-lg relative overflow-hidden">
-            <!-- Background pattern -->
-            <svg class="absolute right-0 bottom-0 opacity-10 w-64 h-64 transform translate-x-10 translate-y-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 4.5l7.5 15h-15L12 6.5z"/></svg>
-            
-            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div>
-                    <h1 class="text-3xl font-extrabold mb-2">Chào <span id="welcomeName">bạn</span>,</h1>
-                    <p class="text-blue-100 text-base">Hôm nay bạn đã sẵn sàng ra sân thực địa chưa? Hãy chọn buổi học tương ứng để bắt đầu nạp số liệu.</p>
+        <div class="bg-gradient-to-br from-blue-700 via-blue-600 to-cyan-500 rounded-3xl p-6 sm:p-10 mb-10 text-white shadow-xl relative overflow-hidden">
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                <div class="max-w-xl">
+                    <h1 class="text-3xl font-black mb-3">Chào <span id="welcomeName">bạn</span>,</h1>
+                    <p class="text-blue-100 text-base leading-relaxed">Hôm nay bạn đã sẵn sàng ra sân thực địa chưa? Hãy chọn buổi học đang mở khóa để bắt đầu nạp số liệu đo đạc.</p>
                 </div>
                 
-                <!-- Progress Block -->
-                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/20 min-w-[250px]">
+                <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/20 min-w-[280px]">
                     <div class="flex justify-between items-end mb-2">
-                        <span class="text-sm font-semibold text-blue-50">Tiến độ học phần</span>
-                        <span class="text-2xl font-bold">1<span class="text-sm text-blue-200">/9</span></span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-blue-100">Tiến độ học phần</span>
+                        <span class="text-3xl font-black"><span id="progressCount">0</span><span class="text-sm text-blue-200">/9</span></span>
                     </div>
-                    <div class="w-full bg-blue-900/50 rounded-full h-2.5 mb-1">
-                        <div class="bg-white h-2.5 rounded-full progress-bar" style="width: 11%"></div>
+                    <div class="w-full bg-blue-900/40 rounded-full h-3 mb-2">
+                        <div id="progressBar" class="bg-white h-3 rounded-full progress-bar shadow-sm" style="width: 0%"></div>
                     </div>
-                    <p class="text-xs text-blue-100 text-right">Đã hoàn thành 11%</p>
+                    <p class="text-[10px] text-blue-100 font-bold uppercase tracking-tight text-right">Cố gắng hoàn thành 9 buổi thực tập!</p>
                 </div>
             </div>
         </div>
 
-        <!-- Section Title -->
-        <div class="mb-6 flex justify-between items-end">
-            <div>
-                <h2 class="text-xl font-bold text-gray-900">Lộ trình 9 buổi thực hành</h2>
-                <p class="text-sm text-gray-500 mt-1">Đo 3 lần lấy trung bình - Khắt khe để trở thành Kỹ sư giỏi.</p>
-            </div>
+        <div class="mb-8 border-b border-gray-200 pb-4">
+            <h2 class="text-2xl font-black text-gray-900 tracking-tight uppercase">Lộ trình Thực hành số</h2>
+            <p class="text-sm text-gray-500 mt-1">Số liệu được đồng bộ hóa thời gian thực với hệ thống của Khoa.</p>
         </div>
 
-        <!-- Grid Cards for 9 Sessions -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="sessionsContainer">
-            <!-- Các thẻ buổi học sẽ được render bằng JavaScript ở dưới -->
+            <div class="bg-white animate-pulse h-48 rounded-2xl border border-gray-200"></div>
+            <div class="bg-white animate-pulse h-48 rounded-2xl border border-gray-200"></div>
+            <div class="bg-white animate-pulse h-48 rounded-2xl border border-gray-200"></div>
         </div>
 
     </main>
 
-    <!-- Scripts -->
+    <footer class="bg-white border-t border-gray-200 py-6 text-center text-sm text-gray-400 font-medium">
+        &copy; 2026 Khoa Địa chất - HCMUS. Hệ thống Thực tập Số hóa.
+    </footer>
+
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
     <script>
-        // Kiểm tra Auth (Bảo vệ Route)
-        document.addEventListener('DOMContentLoaded', () => {
-            const userStr = localStorage.getItem('user');
-            if (!userStr) {
-                // Nếu chưa đăng nhập, đá văng về trang login
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = Auth.getUser();
+            if (!user) {
                 window.location.href = 'login.html';
                 return;
             }
 
-            const user = JSON.parse(userStr);
-            // Render thông tin User
-            document.getElementById('navUserName').innerText = user.name || user.fullname || 'Sinh viên';
-            document.getElementById('navUserMssv').innerText = `MSSV: ${user.mssv}`;
-            document.getElementById('welcomeName').innerText = (user.name || user.fullname || '').split(' ').pop(); // Lấy tên cuối
-            document.getElementById('navAvatarInitials').innerText = (user.name || user.fullname || 'SV').charAt(0).toUpperCase();
+            // 1. Render Thông tin cá nhân
+            renderUserInfo(user);
 
-            renderSessions();
+            // 2. Hiển thị cổng Admin nếu là Giảng viên
+            if (user.role === 'teacher' || user.role === 'admin') {
+                document.getElementById('adminPortal').classList.remove('hidden');
+            }
+
+            // 3. Tải trạng thái các buổi học từ Server (Dynamic)
+            await loadDynamicSessions();
         });
 
-        // Hàm Đăng xuất
-        function handleLogout() {
-            if(confirm("Bạn có chắc chắn muốn đăng xuất khỏi hệ thống?")) {
-                localStorage.removeItem('user');
-                window.location.href = 'login.html';
+        function renderUserInfo(user) {
+            document.getElementById('navUserName').innerText = user.fullname || 'Sinh viên';
+            document.getElementById('navUserMssv').innerText = `MSSV: ${user.mssv}`;
+            document.getElementById('welcomeName').innerText = (user.fullname || '').split(' ').pop();
+            document.getElementById('navAvatarInitials').innerText = (user.fullname || 'S').charAt(0).toUpperCase();
+        }
+
+        async function loadDynamicSessions() {
+            const container = document.getElementById('sessionsContainer');
+            
+            try {
+                // Gọi API lấy trạng thái từ sheet Settings
+                const res = await API.call("GET_CONFIG");
+                
+                if (res.status === 'success') {
+                    renderSessionsList(res.sessions);
+                    updateProgress(res.sessions);
+                } else {
+                    container.innerHTML = `<p class="text-red-500 p-6 text-center font-bold">Lỗi: ${res.message}</p>`;
+                }
+            } catch (error) {
+                container.innerHTML = `<p class="text-red-500 p-6 text-center">Không thể kết nối máy chủ.</p>`;
             }
         }
 
-        // Data 9 Buổi học (Dựa trên thiết kế kiến trúc)
-        const sessionsData = [
-            { id: 1, title: "Giới thiệu Kinh vĩ & Thủy bình", desc: "Nhận diện bộ phận và ngắm mục tiêu 3 lần.", status: "completed", url: "sessions/session1.html" },
-            { id: 2, title: "Cân bằng máy & Định tâm", desc: "7 bước thao tác. Bấm giờ tốc độ và đo độ lệch.", status: "in-progress", url: "sessions/session2.html" },
-            { id: 3, title: "Đo góc bằng & Kiểm nghiệm", desc: "Đo góc thuận/đảo kính. Tính sai số 2C, MO.", status: "locked", url: "sessions/session3.html" },
-            { id: 4, title: "Đo góc đứng & Cao lượng giác", desc: "Đọc 3 chỉ mia. Tính khoảng cách và chênh cao.", status: "locked", url: "sessions/session4.html" },
-            { id: 5, title: "Đo dài bằng chỉ lượng cự", desc: "Đo khoảng cách quang học đối chứng thước dây.", status: "locked", url: "sessions/session5.html" },
-            { id: 6, title: "Đo chênh cao thủy bình", desc: "Đọc số mm. Kiểm nghiệm sai số góc i.", status: "locked", url: "sessions/session6.html" },
-            { id: 7, title: "Dẫn chuyền cao độ tuyến kín", desc: "Đo nhiều trạm liên tiếp khép vòng (A-B-C-A).", status: "locked", url: "sessions/session7.html" },
-            { id: 8, title: "Bình sai lưới thủy chuẩn", desc: "Nội nghiệp tại sân: Phân bổ sai số fh, tính cao độ.", status: "locked", url: "sessions/session8.html" },
-            { id: 9, title: "Sát hạch cuối kỳ tổng hợp", desc: "Bốc đề thi ngẫu nhiên & Nộp hồ sơ hoàn công.", status: "locked", url: "sessions/session9.html" },
-        ];
-
-        // Render Cards
-        function renderSessions() {
+        function renderSessionsList(sessions) {
             const container = document.getElementById('sessionsContainer');
             let html = '';
 
-            sessionsData.forEach(session => {
-                // Xác định style theo trạng thái
-                let badgeClass = '';
-                let badgeText = '';
-                let btnClass = '';
-                let btnText = '';
-                let isLocked = false;
+            sessions.forEach(session => {
+                let badgeClass = '', badgeText = '', btnClass = '', btnText = '', isLocked = false;
 
-                if (session.status === 'completed') {
-                    badgeClass = 'bg-emerald-100 text-emerald-700 border-emerald-200';
+                // Logic xử lý trạng thái
+                if (session.status === 'in-progress') {
+                    badgeClass = 'bg-blue-50 text-blue-600 border-blue-200';
+                    badgeText = '▶ Đang mở';
+                    btnClass = 'bg-blue-600 text-white hover:bg-blue-700 shadow-md active:scale-95';
+                    btnText = 'Bắt đầu nạp số liệu';
+                } else if (session.status === 'completed') {
+                    badgeClass = 'bg-emerald-50 text-emerald-600 border-emerald-200';
                     badgeText = '✓ Đã hoàn thành';
                     btnClass = 'bg-white border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50';
-                    btnText = 'Xem minh chứng PDF';
-                } else if (session.status === 'in-progress') {
-                    badgeClass = 'bg-blue-100 text-blue-700 border-blue-200';
-                    badgeText = '▶ Đang mở';
-                    btnClass = 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg';
-                    btnText = 'Vào thực hành';
-                } else { // locked
-                    badgeClass = 'bg-gray-100 text-gray-500 border-gray-200';
-                    badgeText = '🔒 Chưa mở';
+                    btnText = 'Xem báo cáo PDF';
+                } else {
+                    badgeClass = 'bg-gray-50 text-gray-400 border-gray-200';
+                    badgeText = '🔒 Đã khóa';
                     btnClass = 'bg-gray-100 text-gray-400 cursor-not-allowed';
                     btnText = 'Chưa đến lịch';
                     isLocked = true;
                 }
 
                 html += `
-                    <div class="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col h-full card-hover ${isLocked ? 'opacity-80' : ''}">
+                    <div class="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col h-full card-hover shadow-sm ${isLocked ? 'grayscale opacity-70' : ''}">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center justify-center w-10 h-10 rounded-xl font-black text-lg ${isLocked ? 'bg-gray-100 text-gray-400' : 'bg-blue-50 text-blue-600 border border-blue-100'}">
                                 ${session.id}
                             </div>
-                            <span class="px-2.5 py-1 text-xs font-semibold rounded-lg border ${badgeClass}">
+                            <span class="px-2.5 py-1 text-[10px] font-black uppercase rounded-lg border ${badgeClass}">
                                 ${badgeText}
                             </span>
                         </div>
                         
-                        <h3 class="text-lg font-bold text-gray-900 leading-tight mb-2">Buổi ${session.id}: ${session.title}</h3>
-                        <p class="text-sm text-gray-500 mb-6 flex-grow">${session.desc}</p>
+                        <h3 class="text-lg font-extrabold text-gray-900 leading-tight mb-2">Buổi ${session.id}: ${session.title}</h3>
+                        <p class="text-sm text-gray-500 mb-6 flex-grow leading-snug">Thực hiện đo đạc và tính toán sai số theo yêu cầu của Giảng viên.</p>
                         
-                        <a href="${isLocked ? '#' : session.url}" 
-                           class="w-full text-center py-2.5 rounded-xl font-semibold text-sm transition-all ${btnClass}"
+                        <a href="${isLocked ? '#' : 'sessions/session' + session.id + '.html'}" 
+                           class="w-full text-center py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition-all ${btnClass}"
                            ${isLocked ? 'onclick="event.preventDefault(); alert(\'Buổi thực hành này chưa được Giảng viên mở khóa!\')"' : ''}>
                             ${btnText}
                         </a>
@@ -190,6 +188,15 @@
             });
 
             container.innerHTML = html;
+        }
+
+        function updateProgress(sessions) {
+            const completed = sessions.filter(s => s.status === 'completed').length;
+            const total = sessions.length;
+            const percent = (completed / total) * 100;
+
+            document.getElementById('progressCount').innerText = completed;
+            document.getElementById('progressBar').style.width = `${percent}%`;
         }
     </script>
 </body>
