@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 2: Cân bằng máy & Định tâm | Thực hành Trắc địa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+<body class="bg-slate-50 text-gray-900 antialiased pb-20">
+
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="../dashboard.html" class="flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors">
+                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                Về Bảng điều khiển
+            </a>
+            <div class="text-sm font-bold text-gray-500 uppercase tracking-widest">Buổi 2</div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <div class="mb-8">
+            <div class="space-y-6 text-center py-4 px-4 mb-8">
+            <div class="flex items-center justify-center gap-4 sm:gap-6">
+                <div class="h-12 sm:h-14 flex-shrink-0">
+                    <img src="https://geology.hcmus.edu.vn/wp-content/uploads/2023/11/Logo-HCMUS-300x246.jpg" alt="Logo HCMUS" class="h-full w-auto object-contain">
+                </div>
+                <div class="flex flex-col justify-center space-y-1">
+                    <h2 class="text-sm sm:text-base font-bold text-blue-600 tracking-widest uppercase leading-tight m-0">Đại học Khoa học Tự nhiên - ĐHQG HCM</h2>
+                    <h2 class="text-sm sm:text-base font-bold text-blue-600 tracking-widest uppercase leading-tight m-0">Khoa Địa Chất</h2>
+                </div>
+                <div class="h-12 sm:h-14 flex-shrink-0">
+                    <img src="https://geology.hcmus.edu.vn/wp-content/uploads/2023/11/Geology-50PNG-300x300.png" alt="Logo Khoa Địa chất" class="h-full w-auto object-contain">
+                </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+                <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Buổi 1: Kinh vĩ & Thủy bình</h1>
+                <p class="max-w-2xl mx-auto text-base text-gray-500 leading-relaxed">
+                    Thực hành nhận diện bộ phận, thao tác điều quang và ngắm bắt mục tiêu 3 lần để triệt tiêu sai số.
+                </p>
+            </div>
+        </div>
+            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">Thao tác Cân bằng máy & Định tâm</h1>
+            <p class="text-gray-500">Thực hành quy trình 7 bước, đo tốc độ thao tác và kiểm soát độ lệch tâm máy dưới 2mm.</p>
+        </div>
+
+        <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-8">
+            <h2 class="font-bold text-blue-800 mb-2">💡 Yêu cầu thuật toán đánh giá (QC)</h2>
+            <p class="text-sm text-blue-900 leading-relaxed mb-2">
+                Sinh viên thực hiện tháo lắp và cân máy 3 lần. Gọi $d_1, d_2, d_3$ là độ lệch định tâm (mm) của 3 lần đo. Hệ thống yêu cầu độ lệch trung bình phải thỏa mãn:
+            </p>
+            <div class="text-center my-2 text-lg text-blue-900 font-semibold">
+                $$ \bar{d} = \frac{d_1 + d_2 + d_3}{3} \le 2\text{ mm} $$
+            </div>
+            <p class="text-xs text-blue-800 italic mt-2">* Nếu $\bar{d} > 2\text{ mm}$, nút Nộp bài sẽ tự động bị khóa. Sinh viên bắt buộc phải xê dịch lại đế máy!</p>
+        </div>
+
+        <form id="sessionForm" class="space-y-6">
+            
+            <input type="hidden" name="form_name" value="PHIẾU KẾT QUẢ THỰC TẬP TRẮC ĐỊA">
+            <input type="hidden" name="session_name" value="BUỔI 2: THAO TÁC CÂN BẰNG MÁY VÀ ĐỊNH TÂM">
+            <input type="hidden" name="subject_name" value="Trắc địa đại cương">
+            <input type="hidden" name="subject_code" value="GEO10055">
+            <input type="hidden" name="theory_instructor" value="ThS. Đỗ Ngọc Thanh">
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <label class="block text-sm font-bold text-gray-900 mb-2">Giảng viên hướng dẫn sân tập <span class="text-red-500">*</span></label>
+                <select name="practice_instructor" required class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="" disabled selected>-- Chọn Giảng viên phụ trách --</option>
+                    <option value="ThS. Nguyễn Văn A">ThS. Nguyễn Văn A</option>
+                    <option value="KS. Trần Thị B">KS. Trần Thị B</option>
+                </select>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex items-center gap-2 mb-4 border-b pb-3">
+                    <span class="bg-blue-100 text-blue-700 font-black w-8 h-8 flex items-center justify-center rounded-lg">I</span>
+                    <h2 class="text-lg font-bold text-gray-900 uppercase">Nhiệm vụ Nhóm: Chọn mốc & Định tâm sơ bộ</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Tên mốc định tâm (Điểm đặt máy)</label>
+                        <input type="text" name="benchmark_point" placeholder="VD: Mốc A1 sân thể dục..." class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-blue-500">
+                    </div>
+                    <div class="md:col-span-2 bg-yellow-50 p-3 rounded-lg border border-yellow-200 text-sm text-yellow-800">
+                        <input type="checkbox" required class="mr-2 rounded text-blue-600 focus:ring-blue-500" id="safetyCheck">
+                        <label for="safetyCheck" class="font-medium"><b>Đánh giá an toàn:</b> Nhóm xác nhận đã giậm chặt 3 chân máy xuống đất, đảm bảo chân không xê dịch.</label>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Ảnh minh chứng dọi tâm Nhóm</label>
+                        <p class="text-xs text-gray-500 mb-2">Chụp dọi tâm quang học/laser chiếu đúng vào mốc trên mặt đất.</p>
+                        <input type="file" accept="image/*" onchange="encodeImage(this, 'group_photo_url')" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300 rounded-xl bg-gray-50">
+                        <input type="hidden" name="group_photo_url" id="group_photo_url">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex items-center gap-2 mb-4 border-b pb-3">
+                    <span class="bg-emerald-100 text-emerald-700 font-black w-8 h-8 flex items-center justify-center rounded-lg">II</span>
+                    <h2 class="text-lg font-bold text-gray-900 uppercase">Cá nhân: Quy trình 7 bước cân bằng</h2>
+                </div>
+                <p class="text-sm text-gray-500 mb-4">Sinh viên đối chiếu với thao tác thực tế và đánh dấu hoàn thành từng bước.</p>
+
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+                        <input type="checkbox" name="step_1" class="mt-1 w-5 h-5 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+                        <span class="text-sm"><b>Bước 1:</b> Kéo chân máy ngang vai, mở rộng 3 chân tạo thành tam giác đều.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+                        <input type="checkbox" name="step_2" class="mt-1 w-5 h-5 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+                        <span class="text-sm"><b>Bước 2:</b> Đặt máy lên chân máy và vặn ốc kết nối.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+                        <input type="checkbox" name="step_3" class="mt-1 w-5 h-5 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+                        <span class="text-sm"><b>Bước 3:</b> Định tâm sơ bộ và giậm chặt 3 chân máy.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+                        <input type="checkbox" name="step_4" class="mt-1 w-5 h-5 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+                        <span class="text-sm"><b>Bước 4:</b> Cân bọt thủy tròn vào giữa bằng cách nới lỏng ốc xiết chân máy.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+                        <input type="checkbox" name="step_5" class="mt-1 w-5 h-5 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+                        <span class="text-sm"><b>Bước 5:</b> Cân bằng chính xác bọt thủy dài bằng 3 ốc cân máy.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+                        <input type="checkbox" name="step_6" class="mt-1 w-5 h-5 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+                        <span class="text-sm"><b>Bước 6:</b> Nới lỏng ốc kết nối, xê dịch đế máy trên đầu chân máy để định tâm chính xác 100%.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+                        <input type="checkbox" name="step_7" class="mt-1 w-5 h-5 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+                        <span class="text-sm"><b>Bước 7:</b> Tinh chỉnh lại bọt thủy dài một lần nữa.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 p-6 rounded-2xl shadow-sm border border-blue-200 relative overflow-hidden">
+                <div class="flex items-center gap-2 mb-4 border-b border-blue-200 pb-3 relative z-10">
+                    <span class="bg-blue-600 text-white font-black w-8 h-8 flex items-center justify-center rounded-lg">III</span>
+                    <h2 class="text-lg font-bold text-gray-900 uppercase">Thực hành Cân máy (3 Lần)</h2>
+                </div>
+
+                <div id="dev-warning" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded shadow-sm relative z-10">
+                    <p class="font-bold">⛔ Cảnh báo vi phạm QC:</p>
+                    <p class="text-sm">Độ lệch tâm trung bình <strong>vượt quá 2mm</strong>. Máy chưa đạt chuẩn định tâm. Nút nộp bài đã bị khóa, yêu cầu sinh viên xê dịch lại đế máy!</p>
+                </div>
+
+                <div class="overflow-x-auto relative z-10">
+                    <table class="w-full text-left border-collapse bg-white rounded-xl overflow-hidden shadow-sm">
+                        <thead class="bg-blue-100 text-blue-800 text-sm">
+                            <tr>
+                                <th class="p-3 font-bold">Lần thao tác</th>
+                                <th class="p-3 font-bold">Thời gian (giây)</th>
+                                <th class="p-3 font-bold">Độ lệch tâm (mm)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="p-3 font-semibold text-gray-700">Lần 1</td>
+                                <td class="p-3"><input type="number" name="time_1" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-2 time-group" data-calc="average" data-target="time_avg" data-group="time-group"></td>
+                                <td class="p-3"><input type="number" name="dev_1" step="0.1" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-2 dev-group" data-calc="average" data-target="dev_avg" data-group="dev-group"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-gray-700">Lần 2</td>
+                                <td class="p-3"><input type="number" name="time_2" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-2 time-group" data-calc="average" data-target="time_avg" data-group="time-group"></td>
+                                <td class="p-3"><input type="number" name="dev_2" step="0.1" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-2 dev-group" data-calc="average" data-target="dev_avg" data-group="dev-group"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-gray-700">Lần 3</td>
+                                <td class="p-3"><input type="number" name="time_3" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-2 time-group" data-calc="average" data-target="time_avg" data-group="time-group"></td>
+                                <td class="p-3"><input type="number" name="dev_3" step="0.1" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-2 dev-group" data-calc="average" data-target="dev_avg" data-group="dev-group"></td>
+                            </tr>
+                            <tr class="bg-blue-900 text-white font-bold">
+                                <td class="p-3 uppercase">Trung Bình</td>
+                                <td class="p-3"><input type="number" id="time_avg" name="time_avg" readonly class="w-full bg-transparent border-none text-white font-mono text-lg p-0 focus:ring-0" value="0"></td>
+                                <td class="p-3"><input type="number" id="dev_avg" name="dev_avg" readonly class="w-full bg-transparent border-none text-white font-mono text-lg p-0 focus:ring-0" value="0.0"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 relative z-10">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Ảnh minh chứng cá nhân (Bọt thủy dài)</label>
+                    <p class="text-xs text-gray-500 mb-2">Chụp cận cảnh bọt thủy dài đã nằm chính giữa rạch chuẩn ở lần thao tác tốt nhất.</p>
+                    <input type="file" accept="image/*" capture="environment" onchange="encodeImage(this, 'individual_photo_url')" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 border border-gray-300 rounded-xl bg-white shadow-sm">
+                    <input type="hidden" name="individual_photo_url" id="individual_photo_url">
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-gray-900 uppercase border-b pb-3 mb-4">IV. Tổng kết & Đánh giá</h2>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Nhận xét của sinh viên (Khó khăn gặp phải, sự rút ngắn thời gian...):</label>
+                <textarea name="student_comment" rows="3" class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-blue-500" placeholder="Trình bày ngắn gọn..."></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200 mt-6">
+                <button type="button" id="btnExportPDF" onclick="PDFExporter.export('pdf-template-buoi2', 'Buoi2_CanBangMay')" 
+                    class="sm:w-1/3 flex justify-center items-center py-4 px-4 border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    🖨️ Xuất Báo cáo PDF
+                </button>
+                
+                <button type="submit" id="btnSubmitPersonal" name="action_submit" value="Cá nhân"
+                    class="sm:w-1/3 flex justify-center items-center py-4 px-4 border border-transparent text-white bg-blue-600 font-bold rounded-xl hover:bg-blue-700 shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    👤 Nộp Bài Cá Nhân
+                </button>
+                
+                <button type="submit" id="btnSubmitGroup" name="action_submit" value="Nhóm"
+                    class="sm:w-1/3 flex justify-center items-center py-4 px-4 border border-transparent text-white bg-emerald-600 font-bold rounded-xl hover:bg-emerald-700 shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+                    title="Chỉ dành cho Nhóm trưởng sau khi đã điền phần Nhiệm vụ Nhóm">
+                    👥 Nộp Bài Nhóm
+                </button>
+            </div>
+
+        </form>
+    </main>
+
+    <div id="pdf-template-buoi2" class="hidden font-serif bg-white text-black text-[13px] leading-relaxed max-w-[800px] mx-auto p-8">
+        <div class="flex justify-between items-center border-b-2 border-black pb-4 mb-4">
+            <div class="text-center flex-1 px-4">
+                <h3 class="m-0 text-[14px] font-bold uppercase">Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM<br>Khoa Địa chất - Bộ môn ĐCTV & ĐCCT</h3>
+                <h2 class="mt-2 mb-1 text-[18px] font-extrabold uppercase" data-pdf-field="form_name">Phiếu Kết Quả Thực Tập Trắc Địa</h2>
+                <p class="m-0 italic font-bold" data-pdf-field="session_name">Buổi 2: Thao tác cân bằng máy và định tâm</p>
+            </div>
+        </div>
+
+        <div class="text-right italic text-[12px] text-gray-700 mb-4">
+            Ngày giờ truy cập/Nộp bài: <span data-pdf-field="access_datetime" class="font-semibold text-black">--/--/----</span>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="font-bold text-[14px] mb-2 uppercase">I. Thông tin chung</h4>
+            <div class="grid grid-cols-2 gap-2 pl-4">
+                <div><b>Môn học:</b> <span data-pdf-field="subject_name"></span></div>
+                <div><b>Mã môn:</b> <span data-pdf-field="subject_code"></span></div>
+                <div><b>Giảng viên lý thuyết:</b> <span data-pdf-field="theory_instructor"></span></div>
+                <div><b>Giảng viên hướng dẫn:</b> <span data-pdf-field="practice_instructor" class="font-bold"></span></div>
+                <div><b>Họ và tên:</b> <span data-pdf-field="student_name" class="font-bold uppercase"></span></div>
+                <div><b>MSSV:</b> <span data-pdf-field="student_id" class="font-bold"></span> <span class="ml-4"><b>Nhóm:</b> <span data-pdf-field="group_id" class="font-bold"></span></span></div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="font-bold text-[14px] mb-2 uppercase">II. Nhiệm vụ nhóm - Chọn mốc và định tâm sơ bộ</h4>
+            <ul class="list-disc pl-8 mb-2 space-y-1">
+                <li><b>Tên mốc định tâm:</b> <span data-pdf-field="benchmark_point" class="font-bold"></span></li>
+                <li><b>Đánh giá an toàn:</b> Nhóm xác nhận đã giậm chặt 3 chân máy xuống đất, đảm bảo chân không xê dịch.</li>
+            </ul>
+            <div class="mt-2 text-center">
+                <p class="italic text-[12px] mb-1">Ảnh minh chứng dọi tâm của nhóm:</p>
+                <div data-pdf-field="group_photo_url" class="min-h-[150px] max-w-[500px] mx-auto flex items-center justify-center border border-gray-300 text-gray-400 text-xs"></div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="font-bold text-[14px] mb-2 uppercase">III. Nhiệm vụ cá nhân - Quy trình 7 bước cân bằng</h4>
+            <div class="pl-4 space-y-1 text-[12px]">
+                <p>☑ [B1] Kéo chân máy ngang vai, mở rộng 3 chân tạo thành tam giác đều: <b data-pdf-field="step_1"></b></p>
+                <p>☑ [B2] Đặt máy lên chân máy và vặn ốc kết nối: <b data-pdf-field="step_2"></b></p>
+                <p>☑ [B3] Định tâm sơ bộ và giậm chặt 3 chân máy: <b data-pdf-field="step_3"></b></p>
+                <p>☑ [B4] Cân bọt thủy tròn vào giữa bằng cách nới lỏng ốc xiết chân máy: <b data-pdf-field="step_4"></b></p>
+                <p>☑ [B5] Cân bằng chính xác bọt thủy dài bằng 3 ốc cân máy: <b data-pdf-field="step_5"></b></p>
+                <p>☑ [B6] Nới lỏng ốc kết nối, xê dịch đế máy để định tâm chính xác 100%: <b data-pdf-field="step_6"></b></p>
+                <p>☑ [B7] Tinh chỉnh lại bọt thủy dài một lần nữa: <b data-pdf-field="step_7"></b></p>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="font-bold text-[14px] mb-2 uppercase">IV. Thực hành cân máy 3 lần và đánh giá</h4>
+            <table class="w-full border-collapse border border-black text-center mt-2">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border border-black p-2">Lần thao tác</th>
+                        <th class="border border-black p-2">Thời gian hoàn thành (Giây)</th>
+                        <th class="border border-black p-2">Độ lệch tâm (mm)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border border-black p-1 font-bold">Lần 1</td>
+                        <td class="border border-black p-1" data-pdf-field="time_1"></td>
+                        <td class="border border-black p-1" data-pdf-field="dev_1"></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-black p-1 font-bold">Lần 2</td>
+                        <td class="border border-black p-1" data-pdf-field="time_2"></td>
+                        <td class="border border-black p-1" data-pdf-field="dev_2"></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-black p-1 font-bold">Lần 3</td>
+                        <td class="border border-black p-1" data-pdf-field="time_3"></td>
+                        <td class="border border-black p-1" data-pdf-field="dev_3"></td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="border border-black p-1 font-bold">TRUNG BÌNH</td>
+                        <td class="border border-black p-1 font-bold" data-pdf-field="time_avg"></td>
+                        <td class="border border-black p-1 font-bold text-red-600" data-pdf-field="dev_avg"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="mt-2 text-center">
+                <p class="italic text-[12px] mb-1">Ảnh minh chứng cá nhân (Bọt thủy dài đã cân bằng):</p>
+                <div data-pdf-field="individual_photo_url" class="h-[120px] max-w-[200px] mx-auto border border-gray-300 flex items-center justify-center text-gray-400 text-xs"></div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="font-bold text-[14px] mb-2 uppercase">V. Tổng kết và Đánh giá</h4>
+            <div class="border border-black p-3 mb-2 bg-gray-50 min-h-[50px]">
+                <b>Nhận xét của sinh viên:</b> <span data-pdf-field="student_comment" class="italic"></span>
+            </div>
+            <div class="border border-black p-3 min-h-[60px]">
+                <b class="text-red-700">Đánh giá của Giảng viên:</b><br>
+                Điểm số: ......../10. Nhận xét: ........................................................................................................
+            </div>
+        </div>
+
+        <div class="mt-4 grid grid-cols-2 text-center text-[13px]">
+            <div>
+                <p class="font-bold mb-12">SINH VIÊN THỰC HIỆN</p>
+                <p class="font-bold uppercase" data-pdf-field="student_name"></p>
+            </div>
+            <div>
+                <p class="font-bold mb-12">GIẢNG VIÊN XÁC NHẬN</p>
+                <p class="font-bold uppercase">.......................................</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+
+    <script src="../assets/js/session.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/autosave.js"></script>
+    <script src="../assets/js/session.js"></script>
+    <script src="../assets/js/pdf.js"></script>
+
+    <script>
+        // Hàm chuyển đổi ảnh
+        function encodeImage(element, hiddenFieldId) {
+            const file = element.files[0];
+            const reader = new FileReader();
+            reader.onloadend = function() {
+                document.getElementById(hiddenFieldId).value = reader.result;
+                if (typeof AutoSave !== 'undefined') AutoSave.saveData(document.getElementById('sessionForm'));
+            }
+            if (file) reader.readAsDataURL(file);
+        }
+
+        // ==========================================
+        // VALIDATION ĐẶC THÙ BUỔI 2: ĐỘ LỆCH TÂM > 2mm
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const devInputs = document.querySelectorAll('.dev-group');
+            const warningBox = document.getElementById('dev-warning');
+            const btnPersonal = document.getElementById('btnSubmitPersonal');
+            const btnGroup = document.getElementById('btnSubmitGroup');
+            
+            function checkDeviationTolerance() {
+                const vals = Array.from(devInputs).map(inp => parseFloat(inp.value)).filter(v => !isNaN(v));
+                
+                // Chỉ xét QC khi sinh viên đã nhập đủ 3 lần đo
+                if (vals.length === 3) {
+                    const avg = vals.reduce((a, b) => a + b, 0) / 3;
+                    
+                    if (avg > 2.0) {
+                        // Bật cảnh báo, Khóa nút Submit
+                        warningBox.classList.remove('hidden');
+                        btnPersonal.disabled = true;
+                        btnGroup.disabled = true;
+                        btnPersonal.classList.add('opacity-50', 'cursor-not-allowed');
+                        btnGroup.classList.add('opacity-50', 'cursor-not-allowed');
+                    } else {
+                        // Tắt cảnh báo, Mở lại nút Submit
+                        warningBox.classList.add('hidden');
+                        btnPersonal.disabled = false;
+                        btnGroup.disabled = false;
+                        btnPersonal.classList.remove('opacity-50', 'cursor-not-allowed');
+                        btnGroup.classList.remove('opacity-50', 'cursor-not-allowed');
+                    }
+                }
+            }
+
+            // Gắn event lắng nghe sự thay đổi của 3 ô nhập liệu lệch tâm
+            devInputs.forEach(input => {
+                input.addEventListener('input', checkDeviationTolerance);
+            });
+        });
+
+        // Lắng nghe Nộp bài Đa Luồng (Cá nhân / Nhóm)
+        document.getElementById('sessionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitterBtn = e.submitter; 
+            const submitType = submitterBtn.value; 
+
+            if (submitType === 'Nhóm') {
+                if(!confirm("Bạn đang nộp bài dưới tư cách ĐẠI DIỆN NHÓM. Vui lòng đảm bảo đã chọn Mốc và tải lên Ảnh dọi tâm. Tiếp tục?")) return;
+            } else {
+                if(!confirm("Bạn đang nộp bài CÁ NHÂN. Vui lòng đảm bảo đã tick 7 bước và điền số liệu 3 lần đo. Tiếp tục?")) return;
+            }
+
+            const originalText = submitterBtn.innerHTML;
+            submitterBtn.disabled = true;
+            submitterBtn.innerHTML = 'Đang đẩy dữ liệu...';
+
+            const user = Auth.getUser();
+            if(!user) {
+                alert("Phiên đăng nhập hết hạn!");
+                window.location.href = '../login.html';
+                return;
+            }
+
+            const formData = new FormData(this);
+            const dataObj = Object.fromEntries(formData.entries());
+            
+            // Format dữ liệu boolean của checkbox để in ra PDF đọc được
+            ['step_1','step_2','step_3','step_4','step_5','step_6','step_7'].forEach(step => {
+                dataObj[step] = this.elements[step].checked ? '(Hoàn thành)' : '(Chưa)';
+            });
+
+            delete dataObj.action_submit; 
+            dataObj.submit_type = submitType; 
+            dataObj.access_datetime = new Date().toLocaleString('vi-VN');
+            dataObj.student_id = user.mssv;
+            dataObj.student_name = user.name || user.fullname;
+            dataObj.group_id = user.classId || 'N/A';
+
+            // Gửi API
+            const result = await API.submitSession(user.mssv, 2, dataObj);
+            
+            if(result && result.status === 'success') {
+                submitterBtn.innerHTML = '✅ Nộp thành công!';
+                if (typeof AutoSave !== 'undefined') AutoSave.clearData();
+                
+                alert(`Số liệu [${submitType}] đã được lưu thành công!`);
+                if(confirm("Bạn có muốn quay về Bảng điều khiển? (Chọn Hủy để ở lại trang này)")) {
+                    window.location.href = '../dashboard.html';
+                } else {
+                    submitterBtn.disabled = false;
+                    submitterBtn.innerHTML = originalText;
+                }
+            } else {
+                alert("Lỗi mạng. Dữ liệu nháp đã được lưu tự động.");
+                submitterBtn.disabled = false;
+                submitterBtn.innerHTML = originalText;
+            }
+        });
+    </script>
+</body>
+</html>
