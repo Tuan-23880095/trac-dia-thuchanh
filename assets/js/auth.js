@@ -8,7 +8,7 @@
 
 const Auth = {
     // Lưu ý: Thay URL này bằng Web App URL của Google Apps Script sau khi deploy
-    API_URL: typeof GAS_ENDPOINT !== 'undefined' ? GAS_ENDPOINT : "https://script.google.com/macros/s/AKfycbz_P818UcGzuj1KshWunbUGnoHlEZzV1uBnI5CSe6BFHMTUhu8BF3X2Rqbkk0ayzd5R/exec",
+    API_URL: typeof GAS_ENDPOINT !== 'undefined' ? GAS_ENDPOINT : "https://script.google.com/macros/s/AKfycbwPCv22W8Hhi8WRC9kNRXkEbMLSsh2cEzVnZB05ngT0QYNQL2lZOIao05lEawmZEBBc/exec",
 
     init() {
         this.bindEvents();
