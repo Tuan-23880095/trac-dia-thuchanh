@@ -1,0 +1,147 @@
+/*
+  ========================================================
+  TÙY CHỈNH CSS - HỆ THỐNG THỰC HÀNH TRẮC ĐỊA HCMUS
+  (Hoạt động song song và ghi đè bổ sung cho Tailwind CSS)
+  ========================================================
+*/
+
+/* --- 1. BIẾN TOÀN CỤC & RESET CƠ BẢN --- */
+:root {
+  --primary-blue: #2563eb; /* Tương đương blue-600 của Tailwind */
+  --primary-cyan: #06b6d4; /* Tương đương cyan-500 của Tailwind */
+}
+
+html, body {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* 
+  [QUAN TRỌNG] Ẩn mũi tên tăng/giảm của thẻ input type="number".
+  Điều này bắt buộc đối với Web Trắc địa để sinh viên không vô tình 
+  lăn chuột (scroll) làm sai lệch tọa độ hoặc số đo góc.
+*/
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield; /* Dành cho trình duyệt Firefox */
+}
+
+/* --- 2. TÙY CHỈNH THANH CUỘN (SCROLLBAR) --- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f8fafc; /* Nền xám nhạt */
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1; /* Màu thanh cuộn */
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; /* Đậm hơn khi hover */
+}
+
+/* --- 3. CÁC CLASS TIỆN ÍCH (UTILITIES) --- */
+
+/* Chữ đổ màu Gradient (Đã dùng ở Index) */
+.gradient-text {
+  background: linear-gradient(to right, var(--primary-blue), var(--primary-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* --- 4. HIỆU ỨNG & CHUYỂN ĐỘNG (ANIMATIONS) --- */
+
+/* Hiệu ứng trượt lên (Dùng cho form Đăng nhập) */
+.login-card, .slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hiệu ứng mờ dần (Dùng cho form Đăng ký) */
+.register-card, .fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Hiệu ứng nổi thẻ khi Hover (Dùng cho Dashboard) */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+}
+
+/* Chuyển động của thanh tiến trình */
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+/* --- 5. ĐỊNH DẠNG CHẾ ĐỘ IN ẤN & XUẤT PDF --- */
+@media print {
+  /* Ép trình duyệt giữ nguyên màu nền của bảng biểu khi in */
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Ẩn hoàn toàn các phần tử giao diện web không cần thiết trên bản in PDF */
+  .no-print, 
+  nav, 
+  header.fixed, 
+  footer, 
+  button {
+    display: none !important;
+  }
+
+  /* Xóa đổ bóng và bo góc lộn xộn để bản in nhìn như văn bản hành chính */
+  .shadow-xl, .shadow-lg, .shadow-md, .rounded-3xl, .rounded-2xl {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Xử lý lỗi đứt ngang bảng biểu giữa 2 trang A4 */
+  table {
+    page-break-inside: auto;
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  thead {
+    display: table-header-group; /* Lặp lại Header bảng nếu sang trang mới */
+  }
+  tfoot {
+    display: table-footer-group;
+  }
+
+  /* Thiết lập khổ giấy A4 mặc định */
+  @page {
+    size: A4 portrait;
+    margin: 15mm;
+  }
+
+  /* Đảm bảo công thức toán học (nếu dùng KaTeX) hiển thị rõ nét */
+  .katex {
+    font-size: 1.1em !important;
+  }
+}
