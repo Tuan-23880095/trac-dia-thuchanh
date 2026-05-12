@@ -9,20 +9,16 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <style>
-        /* Sửa lỗi PDF bị đẩy xuống giữa trang */
+        /* FIX LỖI PDF TRỐNG & LỆCH TRANG: 
+           Ép khung PDF luôn nằm ở tọa độ Top 0 nhưng bị giấu ra ngoài màn hình (left: -9999px) 
+           để html2pdf có thể chụp ảnh chuẩn xác 100% mà không vướng scrollbar. */
         #pdf-template-buoi1 {
-            position: fixed;
+            position: absolute;
             top: 0;
-            left: 0;
+            left: -9999px;
             width: 210mm; 
-            z-index: -9999;
-            visibility: hidden;
-            background: white;
-        }
-        /* Chỉ hiện khi đang trong quá trình xuất PDF */
-        body.exporting-pdf #pdf-template-buoi1 {
-            visibility: visible;
-            z-index: 9999;
+            background-color: white;
+            z-index: -1000;
         }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
     </style>
@@ -53,8 +49,8 @@
             <input type="hidden" name="theory_instructor" value="ThS. Đỗ Ngọc Thanh">
 
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <label class="block text-sm font-bold text-gray-900 mb-2 uppercase">Giảng viên hướng dẫn sân tập</label>
-                <input type="text" name="practice_instructor" required class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:ring-blue-500" placeholder="Nhập tên GV...">
+                <label class="block text-sm font-bold text-gray-900 mb-2 uppercase">Giảng viên hướng dẫn sân tập <span class="text-red-500">*</span></label>
+                <input type="text" id="practice_instructor" name="practice_instructor" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:ring-blue-500" placeholder="Nhập tên GV...">
             </div>
 
             <div class="flex space-x-2 border-b-2 border-gray-200 mt-8 mb-6 overflow-x-auto hide-scrollbar">
@@ -212,14 +208,12 @@
     <script src="../assets/js/pdf.js"></script>
 
     <script>
-        // Sửa lỗi xuất PDF bị lệch
+        // Gọi hàm từ pdf.js
         async function handleExportPDF(suffix) {
-            document.body.classList.add('exporting-pdf');
             await PDFExporter.export('pdf-template-buoi1', 'Buoi1_' + suffix);
-            document.body.classList.remove('exporting-pdf');
         }
 
-        // Logic tính toán trung bình cho cả 2 loại
+        // Tự động tính Trung bình
         document.addEventListener('input', (e) => {
             if (e.target.classList.contains('angle-group') || e.target.classList.contains('mm-group')) {
                 const angleVals = Array.from(document.querySelectorAll('.angle-group')).map(i => parseFloat(i.value)).filter(v => !isNaN(v));
@@ -235,6 +229,76 @@
             reader.onload = () => document.getElementById(hiddenId).value = reader.result;
             if(el.files[0]) reader.readAsDataURL(el.files[0]);
         }
+
+        // BẮT LỖI SUBMIT THÔNG MINH
+        document.getElementById('sessionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Kểm tra Giảng viên trước tiên
+            const gvInput = document.getElementById('practice_instructor');
+            if(!gvInput.value.trim()) {
+                alert("Lỗi: Vui lòng nhập tên Giảng viên hướng dẫn sân tập!");
+                gvInput.focus();
+                return;
+            }
+
+            const submitterBtn = e.submitter; 
+            if (!submitterBtn) return; // Tránh lỗi khi sinh viên bấm Enter trên bàn phím thay vì click nút
+
+            const submitType = submitterBtn.value; 
+
+            // Xác nhận hành động
+            if (submitType === 'Nhóm') {
+                if(!document.getElementById('group_photo_url').value) {
+                    return alert("Lỗi: Vui lòng tải lên Ảnh toàn cảnh nhóm trước khi nộp!");
+                }
+                if(!confirm("Xác nhận nộp bài NHÓM?")) return;
+            } else {
+                if(!confirm("Xác nhận nộp bài CÁ NHÂN?")) return;
+            }
+
+            const originalText = submitterBtn.innerHTML;
+            submitterBtn.disabled = true; 
+            submitterBtn.innerHTML = 'Đang đẩy dữ liệu...';
+
+            const user = Auth.getUser();
+            if(!user) return window.location.href = '../login.html';
+
+            const formData = new FormData(this);
+            const dataObj = Object.fromEntries(formData.entries());
+            delete dataObj.action_submit; 
+            dataObj.submit_type = submitType; 
+            dataObj.access_datetime = new Date().toLocaleString('vi-VN');
+            dataObj.student_id = user.mssv; 
+            dataObj.student_name = user.name || user.fullname;
+            dataObj.group_id = user.classId || 'N/A';
+
+            try {
+                // Gọi API thật lên backend
+                const result = await API.submitSession(user.mssv, 1, dataObj);
+                
+                if(result && result.status === 'success') {
+                    submitterBtn.innerHTML = '✅ Nộp thành công!';
+                    if (typeof AutoSave !== 'undefined') AutoSave.clearData();
+                    alert(`Dữ liệu [${submitType}] đã được ghi nhận vào hệ thống của Khoa.`);
+                    
+                    if(confirm("Bạn có muốn quay về Bảng điều khiển? (Chọn Hủy nếu bạn muốn chuyển sang Tab luồng còn lại để nộp tiếp)")) {
+                        window.location.href = '../dashboard.html';
+                    } else {
+                        submitterBtn.disabled = false; 
+                        submitterBtn.innerHTML = originalText;
+                    }
+                } else {
+                    alert("Lỗi từ máy chủ: " + (result.message || "Hãy thử lại sau."));
+                    submitterBtn.disabled = false; 
+                    submitterBtn.innerHTML = originalText;
+                }
+            } catch (error) {
+                alert("Lỗi mạng! Dữ liệu đã được tự động lưu nháp vào thiết bị, vui lòng kết nối 4G/Wifi ổn định và nộp lại.");
+                submitterBtn.disabled = false; 
+                submitterBtn.innerHTML = originalText;
+            }
+        });
     </script>
 </body>
 </html>
