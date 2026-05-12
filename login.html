@@ -55,7 +55,7 @@
                         <label for="remember-me" class="ml-2 block text-gray-700">Ghi nhớ đăng nhập</label>
                     </div>
                     <div class="text-sm">
-                        <a href="#" class="font-medium text-blue-600 hover:text-blue-500">Quên mật khẩu?</a>
+                        <a href="#" id="forgotPassBtn" class="font-medium text-blue-600 hover:text-blue-500">Quên mật khẩu?</a>
                     </div>
                 </div>
 
@@ -87,35 +87,6 @@
 
     <script src="assets/js/api.js"></script>
     <script src="assets/js/auth.js"></script>
-    <script>
-        // Logic xử lý Form tạm thời (Sẽ được tối ưu trong auth.js)
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('loginBtn');
-            const errorDiv = document.getElementById('errorMessage');
-            
-            // Hiệu ứng Loading
-            btn.disabled = true;
-            btn.innerHTML = 'Đang xác thực...';
-            errorDiv.classList.add('hidden');
-
-            // Giả lập xử lý (Sau này sẽ gọi hàm trong auth.js)
-            setTimeout(() => {
-                const mssv = document.getElementById('mssv').value;
-                const pass = document.getElementById('password').value;
-
-                if (mssv === "admin" && pass === "123456") {
-                    // Lưu session giả
-                    localStorage.setItem('user', JSON.stringify({mssv: mssv, name: 'Sinh viên Demo'}));
-                    window.location.href = 'dashboard.html';
-                } else {
-                    btn.disabled = false;
-                    btn.innerHTML = 'Đăng nhập';
-                    errorDiv.innerText = 'MSSV hoặc mật khẩu không chính xác!';
-                    errorDiv.classList.remove('hidden');
-                }
-            }, 1000);
-        });
-    </script>
+  
 </body>
 </html>
