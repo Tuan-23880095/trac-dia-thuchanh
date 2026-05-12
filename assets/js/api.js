@@ -7,7 +7,7 @@
  */
 
 // URL Web App của Google Apps Script (Lấy từ file cấu hình .env)
-const GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxJw0k2Sj3RVFiLANLdLjE0KtUpbvMBYpUBDs_k3nQ49KCAq4wayoZsCJaW17dmbsc7/exec";
+const GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbze5W7iJL3yCb5JyrgyfBiU2O5i-ZKYpc_8fQA9CncvWx0aJSwsg4P6LEH5t0R7psgi/exec";
 
 const API = {
     url: GAS_ENDPOINT,
