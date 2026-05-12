@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn sử dụng | Hệ thống Trắc địa HCMUS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+        .guide-section { scroll-margin-top: 5rem; }
+    </style>
+</head>
+<body class="text-gray-900 antialiased flex flex-col min-h-screen">
+
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="bg-blue-600 p-2 rounded-lg text-white shadow-lg shadow-blue-200">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <span class="font-bold text-lg tracking-tight text-blue-900">Cẩm nang Trắc địa</span>
+                </div>
+                <div class="flex gap-4">
+                    <a href="login.html" class="text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors">Đăng nhập</a>
+                    <a href="dashboard.html" class="text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors">Về Bảng điều khiển</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row gap-8">
+        
+        <aside class="md:w-1/4 hidden md:block">
+            <div class="sticky top-24 bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-black text-gray-900 uppercase text-sm tracking-widest mb-4">Mục lục</h3>
+                <ul class="space-y-3 text-sm font-medium text-gray-500">
+                    <li><a href="#sv-dangky" class="hover:text-blue-600 transition-colors">1. Đăng ký & Đăng nhập</a></li>
+                    <li><a href="#sv-dashboard" class="hover:text-blue-600 transition-colors">2. Bảng điều khiển (SV)</a></li>
+                    <li><a href="#sv-nhaplieu" class="hover:text-blue-600 transition-colors">3. Nguyên tắc nhập liệu (QC)</a></li>
+                    <li><a href="#sv-nopbai" class="hover:text-blue-600 transition-colors">4. Xuất PDF & Nộp bài</a></li>
+                    <li class="pt-2 mt-2 border-t border-gray-100"></li>
+                    <li><a href="#gv-admin" class="text-emerald-600 hover:text-emerald-700 transition-colors">5. Dành cho Giảng viên</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="md:w-3/4 space-y-10">
+            
+            <div class="border-b border-gray-200 pb-6">
+                <h1 class="text-3xl font-black text-gray-900 tracking-tight uppercase mb-3">Hướng dẫn sử dụng hệ thống</h1>
+                <p class="text-gray-500 leading-relaxed">Hệ thống Thực tập Trắc địa Số hóa được thiết kế nhằm nâng cao chất lượng thực địa, tự động hóa tính toán và kiểm soát sai số chặt chẽ.</p>
+            </div>
+
+            <section id="sv-dangky" class="guide-section bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-lg">1</div>
+                    <h2 class="text-xl font-bold text-gray-900">Đăng ký & Đăng nhập</h2>
+                </div>
+                <div class="space-y-4 text-gray-600 text-sm leading-relaxed">
+                    <p><strong>Dành cho Sinh viên:</strong> Việc tạo tài khoản được quản lý nghiêm ngặt qua danh sách lớp.</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Truy cập trang <a href="register.html" class="text-blue-600 font-bold hover:underline">Đăng ký</a>. Điền chính xác Mã số sinh viên (MSSV).</li>
+                        <li>Hệ thống sẽ đối chiếu MSSV của bạn với <strong>Danh sách lớp (Whitelist)</strong>. Nếu không có tên trong danh sách, bạn sẽ không thể đăng ký.</li>
+                        <li><strong>Quên mật khẩu?</strong> Tại trang đăng nhập, bấm vào "Quên mật khẩu", nhập MSSV. Hệ thống sẽ tự động gửi lại mật khẩu vào Email mà bạn đã dùng để đăng ký.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="sv-dashboard" class="guide-section bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-lg">2</div>
+                    <h2 class="text-xl font-bold text-gray-900">Bảng điều khiển (Dashboard)</h2>
+                </div>
+                <div class="space-y-4 text-gray-600 text-sm leading-relaxed">
+                    <p>Bảng điều khiển hiển thị lộ trình 9 buổi thực hành. Các buổi học có 3 trạng thái:</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                        <div class="border rounded-xl p-4 bg-gray-50 opacity-70">
+                            <span class="px-2 py-1 text-[10px] font-black uppercase rounded bg-gray-200 text-gray-500">🔒 Đã khóa</span>
+                            <p class="mt-2 text-xs">Chưa đến lịch thực hành. Bạn không thể bấm vào.</p>
+                        </div>
+                        <div class="border rounded-xl p-4 border-blue-200 bg-blue-50">
+                            <span class="px-2 py-1 text-[10px] font-black uppercase rounded bg-blue-200 text-blue-700">▶ Đang mở</span>
+                            <p class="mt-2 text-xs">Buổi học hiện tại. Nhấn "Bắt đầu nạp số liệu" để làm bài.</p>
+                        </div>
+                        <div class="border rounded-xl p-4 border-emerald-200 bg-emerald-50">
+                            <span class="px-2 py-1 text-[10px] font-black uppercase rounded bg-emerald-200 text-emerald-700">✓ Hoàn thành</span>
+                            <p class="mt-2 text-xs">Bạn đã nộp bài. Có thể xem lại báo cáo PDF.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sv-nhaplieu" class="guide-section bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-lg">3</div>
+                    <h2 class="text-xl font-bold text-gray-900">Nguyên tắc Nhập liệu & QC</h2>
+                </div>
+                <div class="space-y-4 text-gray-600 text-sm leading-relaxed">
+                    <p>Hệ thống áp dụng tiêu chuẩn kiểm soát chất lượng (QC) chặt chẽ như tại doanh nghiệp:</p>
+                    <ul class="list-disc pl-5 space-y-3">
+                        <li><strong>Luật "Đo 3 lần":</strong> Mọi phép đo (góc, cạnh, chênh cao) đều phải thực hiện 3 lần độc lập. Nhập đủ 3 lần hệ thống mới tự động tính Trung Bình.</li>
+                        <li><strong>Nhập số liệu Góc:</strong> Nhập dưới dạng số thập phân liên tục. <em>Ví dụ: Góc 120 độ 30 phút 15 giây -> Nhập là <strong>120.3015</strong></em>. Hệ thống sẽ tự dịch ra định dạng $^\circ$ $'$ $''$.</li>
+                        <li>
+                            <div class="bg-red-50 border-l-4 border-red-500 p-3 mt-2 rounded">
+                                <strong class="text-red-700">Cảnh báo Đỏ (Auto-QC):</strong> Nếu kết quả giữa 3 lần đo của bạn lệch nhau quá giới hạn (VD: > 3mm đối với đo thủy chuẩn), hệ thống sẽ báo Đỏ và <strong>Khóa nút nộp bài</strong>. Bạn buộc phải thao tác ngắm/đo lại từ đầu!
+                            </div>
+                        </li>
+                        <li><strong>AutoSave:</strong> Hệ thống tự động lưu nháp dữ liệu vào trình duyệt của bạn mỗi khi bạn gõ phím. Nếu lỡ làm mới trang (F5) hoặc rớt mạng, số liệu vẫn còn nguyên.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="sv-nopbai" class="guide-section bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-lg">4</div>
+                    <h2 class="text-xl font-bold text-gray-900">Xuất báo cáo PDF & Nộp bài</h2>
+                </div>
+                <div class="space-y-4 text-gray-600 text-sm leading-relaxed">
+                    <p>Cuối mỗi form nhập liệu luôn có 3 nút hành động. Bạn phải thực hiện theo trình tự:</p>
+                    <ol class="list-decimal pl-5 space-y-3 font-medium text-gray-800">
+                        <li>
+                            <span class="text-blue-600">Bước 1: Bấm "🖨️ Xuất Báo cáo PDF"</span>
+                            <p class="font-normal text-gray-500 text-xs mt-1">Hệ thống sẽ tự động vẽ Phiếu Thực Tập chuẩn A4 chứa toàn bộ số liệu tính toán và ảnh minh chứng. File PDF tải về máy để bạn lưu trữ làm hồ sơ hoàn công cuối kỳ.</p>
+                        </li>
+                        <li>
+                            <span class="text-blue-600">Bước 2: Bấm "👤 Nộp Bài Cá Nhân"</span>
+                            <p class="font-normal text-gray-500 text-xs mt-1">Gửi số liệu bạn vừa đo lên máy chủ của Khoa. Ai đứng máy người đó nộp.</p>
+                        </li>
+                        <li>
+                            <span class="text-emerald-600">Bước 3: Bấm "👥 Nộp Bài Nhóm" (Chỉ dành cho Nhóm trưởng)</span>
+                            <p class="font-normal text-gray-500 text-xs mt-1">Nhóm trưởng có trách nhiệm tổng hợp số liệu của các thành viên vào mục "Nhiệm vụ Nhóm" rồi bấm nút này để chốt sổ liệu cho cả nhóm.</p>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="gv-admin" class="guide-section bg-gray-800 p-6 md:p-8 rounded-3xl shadow-lg border border-gray-700 text-gray-300 mt-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-black text-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-white">Dành riêng cho Giảng viên</h2>
+                </div>
+                <div class="space-y-4 text-sm leading-relaxed">
+                    <p>Giảng viên có quyền điều khiển luồng thực hành thông qua <strong>Admin Dashboard</strong>.</p>
+                    <ul class="list-disc pl-5 space-y-3">
+                        <li><strong>Điều kiện truy cập:</strong> Tài khoản của Giảng viên phải được cấu hình cột `Role` là `teacher` trong file Google Sheets. Nếu đúng, nút "Trang Quản trị" sẽ xuất hiện trên thanh điều hướng.</li>
+                        <li><strong>Đóng/Mở buổi học:</strong> Tại trang Quản trị, Giảng viên nhấn nút "Đổi trạng thái" để mở khóa Buổi học trong ngày. Giao diện của sinh viên sẽ tự động cập nhật ngay lập tức. Tính năng này giúp ngăn chặn sinh viên nộp bài giả hoặc nộp bài trước ở nhà.</li>
+                        <li><strong>Xem dữ liệu:</strong> Toàn bộ dữ liệu (Bao gồm file JSON số liệu và Link ảnh tải lên Google Drive) đều được hiển thị trực tiếp ở bảng danh sách bài nộp mới nhất trên trang Quản trị.</li>
+                    </ul>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-6 mt-auto text-center text-sm text-gray-400 font-medium">
+        &copy; 2026 Khoa Địa chất - HCMUS. Hệ thống Thực tập Số hóa.
+    </footer>
+
+</body>
+</html>
