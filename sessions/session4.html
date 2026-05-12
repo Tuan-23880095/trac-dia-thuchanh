@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 4: Đo góc đứng & Cao lượng giác | Thực hành Trắc địa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+<body class="bg-slate-50 text-gray-900 antialiased pb-20">
+
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="../dashboard.html" class="flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors">
+                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                Về Bảng điều khiển
+            </a>
+            <div class="text-sm font-bold text-gray-500 uppercase tracking-widest">Buổi 4</div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">Đo Góc Đứng & Cao Lượng Giác</h1>
+            <p class="text-gray-500">Thực hành đọc 3 chỉ mia, đo góc thiên đỉnh Z và tính toán chênh cao lượng giác chính xác giữa hai điểm.</p>
+        </div>
+
+        <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100 mb-8">
+            <h2 class="font-bold text-blue-800 mb-2">💡 Công thức tính toán hệ thống</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-900 bg-white/60 p-4 rounded-xl border border-blue-100">
+                <div>
+                    <span class="font-semibold block mb-1">1. Khoảng cách quang học (m):</span>
+                    $$ D = 100 \cdot n \cdot \cos^2(V) $$
+                    <span class="text-[10px] italic">* Với $n = (c_T - c_D)/1000$</span>
+                </div>
+                <div>
+                    <span class="font-semibold block mb-1">2. Chênh cao lượng giác (m):</span>
+                    $$ h_{AB} = i + D \cdot \tan(V) - \frac{c_G}{1000} $$
+                </div>
+            </div>
+        </div>
+
+        <form id="sessionForm" class="space-y-6">
+            <input type="hidden" name="form_name" value="PHIẾU KẾT QUẢ THỰC TẬP TRẮC ĐỊA">
+            <input type="hidden" name="session_name" value="BUỔI 4: THAO TÁC ĐO GÓC ĐỨNG VÀ ĐO CAO LƯỢNG GIÁC">
+            <input type="hidden" name="subject_name" value="Trắc địa đại cương">
+            <input type="hidden" name="subject_code" value="GEO10055">
+            <input type="hidden" name="theory_instructor" value="ThS. Đỗ Ngọc Thanh">
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <label class="block text-sm font-bold text-gray-900 mb-2">Giảng viên hướng dẫn thực tập <span class="text-red-500">*</span></label>
+                <input type="text" name="practice_instructor" required class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-blue-500" placeholder="Nhập tên GV hướng dẫn...">
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex items-center gap-2 mb-4 border-b pb-3">
+                    <span class="bg-emerald-100 text-emerald-700 font-black w-8 h-8 flex items-center justify-center rounded-lg">I</span>
+                    <h2 class="text-lg font-bold text-gray-900 uppercase">Cá nhân: Kỹ năng đọc mia (3 Lần)</h2>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <input type="text" name="station_A" class="border-b-2 border-gray-200 focus:border-blue-500 py-2 outline-none text-sm" placeholder="Trạm máy (A)">
+                    <input type="text" name="station_B" class="border-b-2 border-gray-200 focus:border-blue-500 py-2 outline-none text-sm" placeholder="Điểm dựng mia (B)">
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-center border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-gray-100 font-bold">
+                                <th class="p-2 border">Lần</th>
+                                <th class="p-2 border">Chỉ trên (mm)</th>
+                                <th class="p-2 border">Chỉ dưới (mm)</th>
+                                <th class="p-2 border">Chỉ giữa (mm)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-2 border font-bold">L1</td>
+                                <td class="p-2 border"><input type="number" name="r1_cT" class="mia-calc w-full text-center p-1 border rounded"></td>
+                                <td class="p-2 border"><input type="number" name="r1_cD" class="mia-calc w-full text-center p-1 border rounded"></td>
+                                <td class="p-2 border"><input type="number" name="r1_cG" class="mia-calc w-full text-center p-1 border rounded"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border font-bold">L2</td>
+                                <td class="p-2 border"><input type="number" name="r2_cT" class="mia-calc w-full text-center p-1 border rounded"></td>
+                                <td class="p-2 border"><input type="number" name="r2_cD" class="mia-calc w-full text-center p-1 border rounded"></td>
+                                <td class="p-2 border"><input type="number" name="r2_cG" class="mia-calc w-full text-center p-1 border rounded"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border font-bold">L3</td>
+                                <td class="p-2 border"><input type="number" name="r3_cT" class="mia-calc w-full text-center p-1 border rounded"></td>
+                                <td class="p-2 border"><input type="number" name="r3_cD" class="mia-calc w-full text-center p-1 border rounded"></td>
+                                <td class="p-2 border"><input type="number" name="r3_cG" class="mia-calc w-full text-center p-1 border rounded"></td>
+                            </tr>
+                            <tr class="bg-emerald-50 font-bold">
+                                <td class="p-2 border">TB</td>
+                                <td class="p-2 border"><input type="number" id="cT_avg" name="cT_avg" readonly class="w-full text-center bg-transparent"></td>
+                                <td class="p-2 border"><input type="number" id="cD_avg" name="cD_avg" readonly class="w-full text-center bg-transparent"></td>
+                                <td class="p-2 border"><input type="number" id="cG_avg" name="cG_avg" readonly class="w-full text-center bg-transparent"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 p-4 bg-gray-50 rounded-xl border space-y-2 text-sm">
+                    <div class="flex justify-between"><span>Chỉ giữa lý thuyết ($c_{G(lt)}$):</span><b id="cG_calc_val">0</b></div>
+                    <div class="flex justify-between"><span>Độ lệch ($\Delta c$):</span><b id="c_diff_val" class="text-blue-600">0</b></div>
+                    <div class="flex justify-between font-bold border-t pt-2"><span>Kết luận QC:</span><span id="qc_status" class="text-gray-500 italic">Đang đợi số liệu...</span></div>
+                    <input type="hidden" name="cG_calc" id="cG_calc">
+                    <input type="hidden" name="c_diff" id="c_diff">
+                    <input type="hidden" name="qc_evaluation" id="qc_evaluation">
+                </div>
+
+                <div class="mt-4">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Ảnh Cá nhân (Lưới dây chữ thập cắt mia)</label>
+                    <input type="file" accept="image/*" onchange="encodeImage(this, 'individual_photo_url')" class="block w-full text-xs text-gray-500 border border-gray-300 rounded-xl bg-gray-50 p-2">
+                    <input type="hidden" name="individual_photo_url" id="individual_photo_url">
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex items-center gap-2 mb-4 border-b pb-3">
+                    <span class="bg-blue-100 text-blue-700 font-black w-8 h-8 flex items-center justify-center rounded-lg">II</span>
+                    <h2 class="text-lg font-bold text-gray-900 uppercase">Nhiệm vụ Nhóm: Đo cao lượng giác (3 Lần)</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase">Chiều cao máy $i$ (m)</label>
+                        <input type="number" step="0.001" name="inst_height" class="trig-calc w-full border-b-2 border-gray-200 py-1 outline-none font-bold" placeholder="VD: 1.455">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase">Sai số MO (DMS)</label>
+                        <input type="number" step="any" name="mo_error" class="trig-calc w-full border-b-2 border-gray-200 py-1 outline-none font-bold" placeholder="VD: 90.0000">
+                    </div>
+                </div>
+
+                <p class="text-xs font-bold text-blue-600 mb-2 uppercase">Số liệu đo trạm ngẫu nhiên:</p>
+                <div class="grid grid-cols-3 gap-2 mb-6">
+                    <input type="number" name="group_cT" class="trig-calc p-2 border rounded text-xs" placeholder="cT (mm)">
+                    <input type="number" name="group_cD" class="trig-calc p-2 border rounded text-xs" placeholder="cD (mm)">
+                    <input type="number" name="group_cG" class="trig-calc p-2 border rounded text-xs" placeholder="cG (mm)">
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-center border-collapse text-[10px]">
+                        <thead>
+                            <tr class="bg-blue-100 font-bold">
+                                <th class="p-2 border">Lần</th>
+                                <th class="p-2 border">Góc $Z$ (DMS)</th>
+                                <th class="p-2 border">Góc đứng $V$</th>
+                                <th class="p-2 border">Khoảng cách $D$ (m)</th>
+                                <th class="p-2 border">Chênh cao $h$ (m)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-2 border font-bold">1</td>
+                                <td class="p-2 border"><input type="number" step="any" name="r1_Z" class="trig-calc w-full text-center border p-1 rounded"></td>
+                                <td class="p-2 border"><input type="text" name="r1_V" readonly class="w-full text-center bg-transparent font-mono"></td>
+                                <td class="p-2 border"><input type="number" name="r1_D" readonly class="w-full text-center bg-transparent"></td>
+                                <td class="p-2 border"><input type="number" name="r1_h" readonly class="w-full text-center bg-transparent"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border font-bold">2</td>
+                                <td class="p-2 border"><input type="number" step="any" name="r2_Z" class="trig-calc w-full text-center border p-1 rounded"></td>
+                                <td class="p-2 border"><input type="text" name="r2_V" readonly class="w-full text-center bg-transparent font-mono"></td>
+                                <td class="p-2 border"><input type="number" name="r2_D" readonly class="w-full text-center bg-transparent"></td>
+                                <td class="p-2 border"><input type="number" name="r2_h" readonly class="w-full text-center bg-transparent"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border font-bold">3</td>
+                                <td class="p-2 border"><input type="number" step="any" name="r3_Z" class="trig-calc w-full text-center border p-1 rounded"></td>
+                                <td class="p-2 border"><input type="text" name="r3_V" readonly class="w-full text-center bg-transparent font-mono"></td>
+                                <td class="p-2 border"><input type="number" name="r3_D" readonly class="w-full text-center bg-transparent"></td>
+                                <td class="p-2 border"><input type="number" name="r3_h" readonly class="w-full text-center bg-transparent"></td>
+                            </tr>
+                            <tr class="bg-blue-900 text-white font-bold">
+                                <td class="p-2 border">TB</td>
+                                <td class="p-2 border"><input type="text" name="Z_avg" readonly class="w-full text-center bg-transparent text-[9px]"></td>
+                                <td class="p-2 border"><input type="text" name="V_avg" readonly class="w-full text-center bg-transparent text-[9px]"></td>
+                                <td class="p-2 border"><input type="number" name="D_avg" readonly class="w-full text-center bg-transparent"></td>
+                                <td class="p-2 border"><input type="number" name="h_avg" readonly class="w-full text-center bg-transparent"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase">Cao độ $H_A$ (m)</label>
+                        <input type="number" step="0.001" name="elevation_A" class="trig-calc w-full border-b py-1 outline-none" placeholder="VD: 5.000">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase">Cao độ $H_B$ (m)</label>
+                        <input type="number" id="elevation_B" name="elevation_B" readonly class="w-full border-b py-1 font-bold text-blue-600 bg-transparent" value="0.000">
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Ảnh minh chứng Nhóm (Hiện trường dốc)</label>
+                    <input type="file" accept="image/*" onchange="encodeImage(this, 'group_photo_url')" class="block w-full text-xs text-gray-500 border border-gray-300 rounded-xl bg-gray-50 p-2">
+                    <input type="hidden" name="group_photo_url" id="group_photo_url">
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <label class="block text-sm font-bold text-gray-900 mb-2 uppercase">V. Tổng kết & Nhận xét</label>
+                <textarea name="student_comment" rows="3" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:ring-blue-500" placeholder="Ghi nhận khó khăn (Z mang dấu âm, đọc mia...)"></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t">
+                <button type="button" onclick="PDFExporter.export('pdf-template-buoi4', 'Buoi4_CaoLuongGiac')" class="sm:w-1/3 py-4 border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50">🖨️ Xuất PDF</button>
+                <button type="submit" name="action_submit" value="Cá nhân" id="btnPersonal" class="sm:w-1/3 py-4 bg-blue-600 text-white font-bold rounded-xl shadow-lg">👤 Nộp Cá Nhân</button>
+                <button type="submit" name="action_submit" value="Nhóm" class="sm:w-1/3 py-4 bg-emerald-600 text-white font-bold rounded-xl shadow-lg">👥 Nộp Nhóm</button>
+            </div>
+        </form>
+    </main>
+
+    <div id="pdf-template-buoi4" class="hidden font-serif p-10 bg-white text-black text-xs leading-relaxed max-w-[800px] mx-auto">
+        <div class="text-center mb-6">
+            <h3 class="font-bold uppercase text-sm">Trường Đại học Khoa học Tự nhiên - ĐHQG HCM<br>Khoa Địa chất - Bộ môn ĐCTV & ĐCCT</h3>
+            <h2 class="mt-4 font-extrabold text-lg uppercase underline">Phiếu Kết Quả Thực Tập Trắc Địa - Buổi 4</h2>
+            <p class="italic text-[10px] mt-1">Đo góc đứng và đo cao lượng giác trên máy kinh vĩ</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-4 border-b-2 border-black pb-2">
+            <div><b>Môn học:</b> Trắc địa đại cương</div>
+            <div><b>GV hướng dẫn:</b> <span data-pdf-field="practice_instructor"></span></div>
+            <div><b>Họ tên:</b> <span data-pdf-field="student_name" class="uppercase"></span></div>
+            <div><b>MSSV:</b> <span data-pdf-field="student_id"></span> | <b>Lớp:</b> <span data-pdf-field="group_id"></span></div>
+        </div>
+
+        <h4 class="font-bold uppercase mb-2">I. Nhiệm vụ Cá nhân: Đọc mia (3 Lần)</h4>
+        <table class="w-full border-collapse border border-black text-center mb-4">
+            <tr class="bg-gray-100 font-bold">
+                <td class="border border-black p-1">Lần</td>
+                <td class="border border-black p-1">Chỉ trên ($c_T$)</td>
+                <td class="border border-black p-1">Chỉ dưới ($c_D$)</td>
+                <td class="border border-black p-1">Chỉ giữa ($c_G$)</td>
+            </tr>
+            <tr><td class="border border-black">1</td><td class="border border-black" data-pdf-field="r1_cT"></td><td class="border border-black" data-pdf-field="r1_cD"></td><td class="border border-black" data-pdf-field="r1_cG"></td></tr>
+            <tr><td class="border border-black">2</td><td class="border border-black" data-pdf-field="r2_cT"></td><td class="border border-black" data-pdf-field="r2_cD"></td><td class="border border-black" data-pdf-field="r2_cG"></td></tr>
+            <tr><td class="border border-black">3</td><td class="border border-black" data-pdf-field="r3_cT"></td><td class="border border-black" data-pdf-field="r3_cD"></td><td class="border border-black" data-pdf-field="r3_cG"></td></tr>
+            <tr class="font-bold bg-gray-50"><td class="border border-black">TB</td><td class="border border-black" data-pdf-field="cT_avg"></td><td class="border border-black" data-pdf-field="cD_avg"></td><td class="border border-black" data-pdf-field="cG_avg"></td></tr>
+        </table>
+        <p class="mb-4">$\Delta c = |c_{G(tb)} - \frac{c_{T(tb)} + c_{D(tb)}}{2}| =$ <b data-pdf-field="c_diff"></b> (mm). QC: <b data-pdf-field="qc_evaluation"></b></p>
+
+        <h4 class="font-bold uppercase mb-2">II. Nhiệm vụ Nhóm: Đo cao lượng giác</h4>
+        <p class="mb-2">Chiều cao máy $i =$ <span data-pdf-field="inst_height"></span> (m). Sai số MO = <span data-pdf-field="mo_error"></span>.</p>
+        <table class="w-full border-collapse border border-black text-center mb-4">
+            <tr class="bg-gray-100 font-bold">
+                <td class="border border-black p-1">Lần</td>
+                <td class="border border-black p-1">Góc $Z$</td>
+                <td class="border border-black p-1">Góc đứng $V$</td>
+                <td class="border border-black p-1">K/c $D$ (m)</td>
+                <td class="border border-black p-1">Chênh cao $h$ (m)</td>
+            </tr>
+            <tr><td class="border border-black">1</td><td class="border border-black" data-pdf-field="r1_Z"></td><td class="border border-black" data-pdf-field="r1_V"></td><td class="border border-black" data-pdf-field="r1_D"></td><td class="border border-black" data-pdf-field="r1_h"></td></tr>
+            <tr><td class="border border-black">2</td><td class="border border-black" data-pdf-field="r2_Z"></td><td class="border border-black" data-pdf-field="r2_V"></td><td class="border border-black" data-pdf-field="r2_D"></td><td class="border border-black" data-pdf-field="r2_h"></td></tr>
+            <tr><td class="border border-black">3</td><td class="border border-black" data-pdf-field="r3_Z"></td><td class="border border-black" data-pdf-field="r3_V"></td><td class="border border-black" data-pdf-field="r3_D"></td><td class="border border-black" data-pdf-field="r3_h"></td></tr>
+            <tr class="font-bold bg-gray-50"><td class="border border-black">TB</td><td class="border border-black" data-pdf-field="Z_avg"></td><td class="border border-black" data-pdf-field="V_avg"></td><td class="border border-black" data-pdf-field="D_avg"></td><td class="border border-black" data-pdf-field="h_avg"></td></tr>
+        </table>
+        <p class="mb-6 font-bold">Cao độ điểm B: $H_B = H_A + h_{tb} = $ <span data-pdf-field="elevation_B"></span> (m).</p>
+
+        <div class="grid grid-cols-2 text-center text-xs">
+            <div><p class="font-bold mb-10">Sinh viên thực hiện</p><p class="uppercase" data-pdf-field="student_name"></p></div>
+            <div><p class="font-bold mb-10">Giảng viên hướng dẫn</p><p>.......................................</p></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}]});"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/autosave.js"></script>
+    <script src="../assets/js/pdf.js"></script>
+
+    <script>
+        function encodeImage(el, hiddenId) {
+            const reader = new FileReader();
+            reader.onload = () => document.getElementById(hiddenId).value = reader.result;
+            if(el.files[0]) reader.readAsDataURL(el.files[0]);
+        }
+
+        // Helper: DMS to Dec to Rad
+        function dmsToRad(val) {
+            if(!val) return 0;
+            const v = parseFloat(val).toFixed(4);
+            const p = v.split('.');
+            const d = parseInt(p[0]) || 0;
+            const m = parseInt(p[1].substring(0,2)) || 0;
+            const s = parseInt(p[1].substring(2,4)) || 0;
+            const dec = d + m/60 + s/3600;
+            return dec * (Math.PI / 180);
+        }
+
+        function radToDmsStr(rad) {
+            let dec = Math.abs(rad * (180 / Math.PI));
+            let d = Math.floor(dec);
+            let m = Math.floor((dec - d) * 60);
+            let s = Math.round(((dec - d) * 60 - m) * 60);
+            if(s === 60) { s = 0; m++; }
+            if(m === 60) { m = 0; d++; }
+            return `${rad < 0 ? '-' : ''}${d}° ${m}' ${s}"`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('sessionForm');
+            
+            // Logic I: Đọc mia cá nhân
+            form.querySelectorAll('.mia-calc').forEach(inp => inp.addEventListener('input', () => {
+                let sumT=0, sumD=0, sumG=0, cnt=0;
+                [1,2,3].forEach(i => {
+                    const t = parseFloat(form[`r${i}_cT`].value) || 0;
+                    const d = parseFloat(form[`r${i}_cD`].value) || 0;
+                    const g = parseFloat(form[`r${i}_cG`].value) || 0;
+                    if(t && d && g) { sumT+=t; sumD+=d; sumG+=g; cnt++; }
+                });
+                
+                if(cnt > 0) {
+                    const t_avg = sumT/cnt; const d_avg = sumD/cnt; const g_avg = sumG/cnt;
+                    document.getElementById('cT_avg').value = t_avg.toFixed(1);
+                    document.getElementById('cD_avg').value = d_avg.toFixed(1);
+                    document.getElementById('cG_avg').value = g_avg.toFixed(1);
+                    
+                    const g_lt = (t_avg + d_avg) / 2;
+                    const diff = Math.abs(g_avg - g_lt);
+                    document.getElementById('cG_calc_val').innerText = g_lt.toFixed(1);
+                    document.getElementById('c_diff_val').innerText = diff.toFixed(1);
+                    form['cG_calc'].value = g_lt.toFixed(1);
+                    form['c_diff'].value = diff.toFixed(1);
+
+                    const status = document.getElementById('qc_status');
+                    if(diff > 2) {
+                        status.innerText = "❌ Sai số > 2mm, yêu cầu đo lại!";
+                        status.className = "text-red-600 font-bold";
+                        document.getElementById('btnPersonal').disabled = true;
+                    } else {
+                        status.innerText = "✅ Đạt chuẩn";
+                        status.className = "text-emerald-600 font-bold";
+                        document.getElementById('btnPersonal').disabled = false;
+                        form['qc_evaluation'].value = "Đạt chuẩn";
+                    }
+                }
+            }));
+
+            // Logic II: Đo cao lượng giác Nhóm
+            form.querySelectorAll('.trig-calc').forEach(inp => inp.addEventListener('input', () => {
+                const i_m = parseFloat(form['inst_height'].value) || 0;
+                const mo_rad = dmsToRad(form['mo_error'].value);
+                const ct = parseFloat(form['group_cT'].value) || 0;
+                const cd = parseFloat(form['group_cD'].value) || 0;
+                const cg = parseFloat(form['group_cG'].value) || 0;
+                const n = (ct - cd) / 1000;
+                const hA = parseFloat(form['elevation_A'].value) || 0;
+
+                let sumZ=0, sumV=0, sumD=0, sumH=0, cnt=0;
+
+                [1,2,3].forEach(idx => {
+                    const z_val = form[`r${idx}_Z`].value;
+                    if(z_val && ct && cd && cg) {
+                        const z_rad = dmsToRad(z_val);
+                        const v_rad = mo_rad - z_rad;
+                        const D = 100 * n * Math.pow(Math.cos(v_rad), 2);
+                        const h = i_m + (D * Math.tan(v_rad)) - (cg/1000);
+                        
+                        form[`r${idx}_V`].value = radToDmsStr(v_rad);
+                        form[`r${idx}_D`].value = D.toFixed(3);
+                        form[`r${idx}_h`].value = h.toFixed(3);
+                        
+                        sumZ += dmsToRad(z_val); sumV += v_rad; sumD += D; sumH += h; cnt++;
+                    }
+                });
+
+                if(cnt > 0) {
+                    form['Z_avg'].value = radToDmsStr(sumZ/cnt);
+                    form['V_avg'].value = radToDmsStr(sumV/cnt);
+                    form['D_avg'].value = (sumD/cnt).toFixed(3);
+                    form['h_avg'].value = (sumH/cnt).toFixed(3);
+                    document.getElementById('elevation_B').value = (hA + (sumH/cnt)).toFixed(3);
+                }
+            }));
+
+            // Submit logic
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const type = e.submitter.value;
+                const user = Auth.getUser();
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                data.submit_type = type;
+                data.access_datetime = new Date().toLocaleString();
+
+                const res = await API.submitSession(user.mssv, 4, data);
+                if(res?.status === 'success') {
+                    alert('Nộp bài thành công!');
+                    AutoSave.clearData();
+                    window.location.href = '../dashboard.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
