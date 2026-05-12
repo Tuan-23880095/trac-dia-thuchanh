@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống Quản trị | Trắc địa HCMUS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <nav class="bg-indigo-900 text-white shadow-lg p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="font-bold text-xl tracking-tight uppercase">Admin Dashboard - Khoa Địa Chất</h1>
+            <div class="flex items-center gap-4 text-sm font-medium">
+                <span id="adminName">Giảng viên</span>
+                <a href="dashboard.html" class="bg-indigo-700 px-3 py-1.5 rounded-lg hover:bg-indigo-600">Về trang SV</a>
+                <button onclick="Auth.logout()" class="text-red-300 hover:text-red-100">Đăng xuất</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto p-6 space-y-8">
+        
+        <section class="bg-white rounded-2xl shadow-sm p-6 border border-gray-200">
+            <h2 class="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+                📂 Trạng thái 9 Buổi Thực hành
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4" id="sessionManager">
+                <div class="animate-pulse bg-gray-100 h-24 rounded-xl"></div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm p-6 border border-gray-200 overflow-hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-lg font-bold text-gray-800">📊 100 Bản ghi nộp bài mới nhất</h2>
+                <button onclick="loadSubmissions()" class="text-sm text-indigo-600 font-bold hover:underline">Làm mới dữ liệu</button>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm border-collapse">
+                    <thead class="bg-gray-50 text-gray-500 font-bold uppercase text-[10px]">
+                        <tr>
+                            <th class="p-3 border-b">MSSV</th>
+                            <th class="p-3 border-b">Buổi</th>
+                            <th class="p-3 border-b">Trạng thái</th>
+                            <th class="p-3 border-b">Thời gian</th>
+                            <th class="p-3 border-b">Dữ liệu</th>
+                        </tr>
+                    </thead>
+                    <tbody id="submissionTableBody" class="divide-y divide-gray-100">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script>
+        // Kiểm tra quyền Admin
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = Auth.getUser();
+            if(!user || (user.role !== 'teacher' && user.role !== 'admin')) {
+                alert("Bạn không có quyền truy cập trang quản trị!");
+                window.location.href = 'dashboard.html';
+                return;
+            }
+            document.getElementById('adminName').innerText = user.fullname;
+            
+            loadSessionStatus();
+            loadSubmissions();
+        });
+
+        // 1. Tải trạng thái các buổi học
+        async function loadSessionStatus() {
+            const res = await API.call("GET_CONFIG");
+            if(res.status === 'success') {
+                const container = document.getElementById('sessionManager');
+                container.innerHTML = res.sessions.map(s => `
+                    <div class="border rounded-xl p-4 flex flex-col justify-between ${s.status === 'in-progress' ? 'border-emerald-200 bg-emerald-50' : 'border-gray-200'}">
+                        <div>
+                            <div class="text-xs font-bold text-gray-400 uppercase">Buổi ${s.id}</div>
+                            <div class="text-sm font-bold text-gray-800 truncate">${s.title}</div>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="text-[10px] font-black uppercase ${s.status === 'in-progress' ? 'text-emerald-600' : 'text-gray-400'}">
+                                ${s.status === 'in-progress' ? 'Đang mở' : 'Đã khóa'}
+                            </span>
+                            <button onclick="toggleSession('${s.id}', '${s.status}')" class="px-3 py-1 bg-white border text-xs font-bold rounded-lg shadow-sm hover:bg-gray-50">
+                                Đổi trạng thái
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        async function toggleSession(id, currentStatus) {
+            const newStatus = currentStatus === 'in-progress' ? 'locked' : 'in-progress';
+            const res = await API.call("UPDATE_SESSION_STATUS", { buoiId: id, newStatus: newStatus });
+            if(res.status === 'success') loadSessionStatus();
+        }
+
+        // 2. Tải danh sách bài nộp
+        async function loadSubmissions() {
+            const res = await API.call("GET_ALL_SUBMISSIONS");
+            if(res.status === 'success') {
+                const body = document.getElementById('submissionTableBody');
+                body.innerHTML = res.submissions.map(row => {
+                    // row: [ID, MSSV, BuoiHoc, DataJSON, Status, Timestamp]
+                    const time = new Date(row[5]).toLocaleString('vi-VN');
+                    return `
+                        <tr class="hover:bg-indigo-50/30 transition-colors">
+                            <td class="p-3 font-bold text-gray-700">${row[1]}</td>
+                            <td class="p-3"><span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-[11px] font-bold">Buổi ${row[2]}</span></td>
+                            <td class="p-3"><span class="text-emerald-600 font-medium">✓ ${row[4]}</span></td>
+                            <td class="p-3 text-xs text-gray-400">${time}</td>
+                            <td class="p-3">
+                                <button onclick='viewJson(${JSON.stringify(row[3])})' class="text-indigo-600 font-bold hover:underline">Chi tiết</button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+        }
+
+        function viewJson(jsonStr) {
+            console.log(JSON.parse(jsonStr));
+            alert("Số liệu đo đạc đã được ghi lại trong Console (F12). Phiên bản sau sẽ hỗ trợ xem bản đẹp.");
+        }
+    </script>
+</body>
+</html>
